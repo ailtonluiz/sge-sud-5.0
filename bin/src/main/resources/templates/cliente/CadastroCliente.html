@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="'layout/LayoutPadrao'"
+      xmlns:sge="http://sge.ailtonluiz.com">
+      
+
+<head>
+	<title> SGS | Registro de Tienda</title>
+</head>
+
+<section layout:fragment="conteudo">
+
+        <div class="page-header">
+            <div class="container-fluid">
+               <div class="row">
+					<div class="col-sm-10">
+		              		<h1 th:if="${cliente.novo}">Registro de Tiendas</h1>
+		              		<h1 th:unless="${cliente.novo}" th:text="|Edición de ${cliente.nome}|">Edición de Tienda</h1>
+                	</div>
+			
+					<div class="col-sm-2">
+						<div class="al-page-header-controls">
+							<a class="btn  btn-default" th:href="@{/clientes}">
+								<i class="glyphicon  glyphicon-search"></i> <span class="hidden-xs  hidden-sm">Búsqueda</span>
+							</a>
+						</div>
+					</div>
+			</div>
+            </div>
+        </div>
+        <div class="container-fluid">
+
+          
+            <form method="POST" th:object="${cliente}" class="form-vertical  js-form-loading" 
+          			  th:action="@{/clientes/novo} ? @{/clientes/novo} : @{/clientes/ {codigo} (codigo=${cliente.codigo})}">
+
+				<sge:message />
+				<input type="hidden" th:field="*{codigo}" />
+                <div class="row">
+
+                    <div class="col-sm-10  form-group sge-required" sge:classforerror="nome">
+                        <label for="nome" class="control-label">Nombre</label>
+                        <input id="nome" type="text" class="form-control" autofocus="autofocus" th:field="*{nome}"/>
+                    </div>
+                    
+                    <div class="col-sm-2  form-group" sge:classforerror="ativo">
+                  		 <label for="ativo" class="control-label">Estado</label>
+						<div>
+							<input type="checkbox" class="js-status" data-size="small" data-off-color="danger" 
+								data-on-text="Activo" data-off-text="Inactivo"  th:field="*{ativo}" />
+						</div>
+					</div>	
+                </div>
+
+                 <div class="row">
+                 
+	                  <div class="col-sm-3  form-group" sge:classforerror="telefone">
+							<label for="telefone">Teléfono</label>
+                         	 	<input id="telefone" type="text" class="form-control js-phone-number" th:field="*{telefone}"/>
+	                  </div>
+	                    
+	              
+	                  <div class="col-sm-6  form-group">
+							<label for="email">Correo electrónico</label>
+                         	 	<input id="email" type="email" class="form-control" th:field="*{email}"/>
+	                  </div>
+	                    
+	                  
+	                  <div class="col-sm-3  form-group">
+                  		<label for="responsavel">Responsable</label>
+                         	 	<input id="responsavel" type="text" class="form-control" th:field="*{responsavel}"/>
+              	     </div>  
+	                  
+                </div>
+
+				<div class="row">
+				
+				    <div class="col-sm-12  form-group">
+                  		<label for="observacao">Nota</label>
+                         	 	<input id="observacao" type="text" class="form-control" th:field="*{observacao}"/>
+              	     </div>  
+				
+				</div>
+            
+                <div class="form-group">
+                    <button class="btn  btn-primary" type="submit">Guardar</button>
+                </div>
+
+            </form>
+        </div>
+    
+</section>
+
+<th:block layout:fragment="javascript-extra">
+	
+	<script>
+		$('.js-status').bootstrapSwitch();
+	</script>
+</th:block>
+</html>

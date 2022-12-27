@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/LayoutSimples}">
+	
+	
+	  <link rel="shortcut icon" th:href="@{/images/favicon.ico}"/>
+	
+<th:block layout:fragment="conteudo">
+	<div class="al-error-panel">
+		<h1 class="al-error-panel__code">
+			<i class="fa  fa-exclamation-triangle"></i> 405
+		</h1>
+		
+		<h2 class="al-error-panel__title">Error del servidor</h2>
+		
+		<div class="al-error-panel__description">
+			No conseguimos encontrar tu ubicación exacta. 
+			Inténtelo de nuevo o póngase en contacto con nosotros si necesita ayuda.
+			<br/><br/>
+			<a href="javascript:history.back()" class="btn  btn-primary">Vuelver</a>
+		</div>
+	</div>
+
+</th:block>
+</html>

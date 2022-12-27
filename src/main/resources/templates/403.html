@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="pt"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/LayoutSimples}">
+	
+	  <link rel="shortcut icon" th:href="@{/images/favicon.ico}"/>
+	
+<th:block layout:fragment="conteudo">
+	<div class="al-error-panel">
+		<h1 class="al-error-panel__code">
+			<i class="fa  fa-lock"></i>
+		</h1>
+		
+		<h2 class="aw-error-panel__title">Acceso denegado</h2>
+		
+		<div class="al-error-panel__description">
+			Lo sentimos, no está autorizado a acceder a la página que solicitó.
+			Si cree que esto es un error, póngase en contacto con el administrador.
+			<br/><br/>
+			<a href="javascript:history.back()" class="btn  btn-primary">Vuelver</a>
+		</div>
+	</div>
+
+</th:block>
+</html>

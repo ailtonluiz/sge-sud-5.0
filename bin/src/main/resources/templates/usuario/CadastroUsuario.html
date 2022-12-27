@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="'layout/LayoutPadrao'"
+      xmlns:sge="http://sge.ailtonluiz.com">
+
+<head>
+	<title>SGS | Registro de usuarios</title>
+</head>
+
+
+<section layout:fragment="conteudo">
+
+      <div class="page-header">
+            <div class="container-fluid">
+               <div class="row">
+					<div class="col-xs-10">
+					<h1 th:if="${usuario.novo}">Registro de usuarios</h1>
+					<h1 th:unless="${usuario.novo}" th:text="|Edición de ${usuario.nome}|">Edición de usuario</h1>
+					</div>
+			
+					<div class="col-sm-2">
+						<div class="al-page-header-controls">
+							<a class="btn  btn-default" th:href="@{/usuarios}">
+								<i class="glyphicon  glyphicon-search"></i> <span class="hidden-xs  hidden-sm">Búsqueda</span>
+							</a>
+						</div>
+					</div>
+			</div>
+            </div>
+        </div>
+
+        <div class="container-fluid">
+
+          
+            <form method="POST" th:object="${usuario}" class="form-vertical  js-form-loading" 
+         	   th:action="${usuario.novo} ? @{/usuarios/novo} : @{/usuarios/{codigo}(codigo=${usuario.codigo})}">
+				
+				<sge:message />
+				<input type="hidden" th:field="*{codigo}"/>
+				
+                <div class="row">
+
+                    <div class="col-sm-10  form-group sge-required" sge:classforerror="nome">
+                        <label for="nome" class="control-label">Nombre</label>
+                        <input id="nome" type="text" class="form-control" th:field="*{nome}" autofocus="autofocus"/>
+                    </div>
+                    
+                     <div class="col-sm-2  form-group"  th:if="${#authentication.principal.usuario.codigo != usuario.codigo}">
+                  		 <label for="ativo" class="control-label">Estado</label>
+						<div>
+							<input type="checkbox" id="ativo" checked="checked" class="js-status"
+								 data-size="small" data-off-color="danger" data-on-text="Activo" data-off-text="Inactivo" th:field="*{ativo}" />
+						</div>
+              	     </div>  
+                </div>
+
+                 <div class="row">
+                 
+	                  <div class="col-sm-2  form-group  sge-required" sge:classforerror="telefone">
+							<label for="telefone" class="control-label">Teléfono</label>
+                         	 	<input type="text" class="form-control  js-phone-number" id="telefone" th:field="*{telefone}"/>
+	                  </div>
+	                    
+	              
+	                  <div class="col-sm-6  form-group  sge-required" sge:classforerror="email">
+							<label for="email" class="control-label">Correo electrónico</label>
+                         	 	<input id="email" type="text" class="form-control" th:field="*{email}" th:readonly="! ${usuario.novo}"/>
+	                  </div>
+	                   
+	                  <div class="col-sm-2  form-group" sge:classforerror="senha" th:classappend="${usuario.novo} ? sge-required">
+						<label for="senha" class="control-label">Contraseña</label>
+						<input id="senha" type="password" class="form-control" th:field="*{senha}"/>                	
+                	 </div>
+        
+                
+                	<div class="col-sm-2  form-group  sge-required" sge:classforerror="confirmacaoSenha">
+						<label for="confirmacaoSenha" class="control-label" >Confirma</label>
+						<input id="confirmacaoSenha" type="password" class="form-control" th:field="*{confirmacaoSenha}" />                	
+                	</div> 
+	              
+	              
+	                  
+                </div>
+                
+                <div class="row">
+                
+					 <div class="col-sm-4  form-group sge-required" sge:classforerror="parametro">
+	                        <label for="parametro" class="control-label">Empresa</label>
+	                        	<div class="sge-field-action">
+									<select id="parametro" class="form-control" th:field="*{parametro}">
+										<option value="">Seleccionar una parametro</option>
+										<option th:each="parametro : ${parametros}" th:value="${parametro.codigo}" th:text="${parametro.nomeEmpresa}" >SUPERMERCAT DEL SUD</option>
+								   </select>
+							   </div>
+	                   </div>
+                
+	                  <div class="col-sm-8  form-group">
+                  		<label for="observacao">Observación</label>
+                         	 <input id="observacao" type="text" class="form-control" th:field="*{observacao}"/>
+              	     </div>  
+     		   </div>
+     		   
+     		   <div class="row">
+				<div class="form-group  col-sm-6  sge-required" sge:classforerror="gruposUsuarios">
+					<label class="control-label">Grupos</label> 
+					<div>
+						<th:block th:each="grupo : ${gruposUsuarios}">
+	  						<div class="checkbox  checkbox-inline"> 
+		    					<input type="checkbox" th:value="${grupo.codigo}" th:field="*{gruposUsuarios}"/>
+		    					<label th:for="${#ids.prev('gruposUsuarios')}" th:text="${grupo.nome}">Administrador</label>
+	    					</div>
+	    				</th:block>
+					</div>
+					</div>
+					
+				</div>
+     		   
+            
+                <div class="form-group">
+                    <button class="btn  btn-primary" type="submit">Guardar</button>
+                </div>
+
+            </form>
+        </div>
+    
+</section>
+<th:block layout:fragment="javascript-extra">
+	<script th:src="@{/javascripts/vendors/bootstrap-switch.min.js}"></script>
+	<script>
+		$('.js-status').bootstrapSwitch();
+	</script>
+</th:block>
+
+</html>

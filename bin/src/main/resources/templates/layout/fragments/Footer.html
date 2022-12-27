@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:th="http://www.thymeleaf.org">
+	
+<body>
+ <footer class="al-layout-footer  js-content" th:fragment="layout-footer">
+        <div class="container-fluid">
+				<span class="al-footer-disclaimer">
+				<span th:text="${#authentication.principal.usuario.parametro.versao}" th:href="@{/versoes}"></span><br/>
+					&copy; 2019 - <script>document.write(new Date().getFullYear()); </script> <a href="https://www.ailtonluiz.com" target="_blank">Ailton Luiz</a>. Todos los derechos reservados.
+				</span>
+        </div>
+</footer>
+</body>
+</html>

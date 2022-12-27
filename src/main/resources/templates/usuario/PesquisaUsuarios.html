@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/LayoutPadrao}"
+	xmlns:sge="http://sge.ailtonluiz.com"
+	xmlns:data="http://www.thymeleaf.org/extras/data"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+	
+<head>
+	<title>SGS | Búsqueda de usuarios</title>
+</head>
+
+<body>
+<section layout:fragment="conteudo">
+	<div class="page-header">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-sm-10">
+					<h1>Búsqueda de usuarios</h1>
+				</div>
+				
+				<div class="col-sm-2" sec:authorize-url="/usuarios/novo">
+					<div class="al-page-header-controls">
+						<a class="btn  btn-default" th:href="@{/usuarios/novo}">
+							<i class="glyphicon  glyphicon-plus-sign"></i> <span class="hidden-xs  hidden-sm">Nuevo usuario</span>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="container-fluid">
+		<form method="GET" th:object="${usuarioFilter}">
+			<div class="row">
+								
+				<div class="form-group  col-sm-12" >
+					<label class="control-label" for="nome">Nombre</label>
+					<input type="text" class="form-control" id="nome" th:field="*{nome}"/>
+				</div>
+			</div>
+			
+			<div class="row">
+			
+				<div class="form-group  col-sm-6" >
+					<label class="control-label" for="email">Correo electrónico</label>
+					<input type="text" class="form-control" id="email" th:field="*{email}"/>
+				</div>
+			
+				<div class="form-group  col-sm-4" >
+					<label class="control-label" for="telefone">Teléfono</label>
+					<input type="text" class="form-control" id="telefone" th:field="*{telefone}"/>
+				</div>						
+			
+				
+				<div class="col-sm-2  form-group">
+                  		 <label for="ativo" class="control-label">Estado</label>
+						<div>
+							<input type="checkbox" id="ativo" checked="checked" class="js-status" data-size="small" data-off-color="danger" data-on-text="Activo" data-off-text="Inactivo" th:field="*{ativo}" />
+						</div>
+              	</div>  
+				
+			</div>
+			
+			<div class="row">
+				<div class="form-group  col-sm-12">
+					<label class="control-label">Grupos</label> 
+					<div>
+						<th:block th:each="grupo : ${gruposUsuarios}">
+	  						<div class="checkbox  checkbox-inline"> 
+		    					<input type="checkbox" th:value="${grupo.codigo}" th:field="*{gruposUsuarios}"/>
+		    					<label th:for="${#ids.prev('gruposUsuarios')}" th:text="${grupo.nome}">Administrador</label>
+	    					</div>
+	    				</th:block>
+					</div>
+  				</div>
+			</div>
+			
+			<button type="submit" class="btn  btn-primary">Búsqueda</button>
+		</form>
+		
+		
+		<div class="al-datatable-toolbar">
+			<button class="btn btn-default  btn-xs  js-status-btn  disabled" data:status="ATIVAR" data:url="@{/usuarios/status}">
+				<span>Activar</span>
+			</button>
+			
+			<button class="btn btn-default  btn-xs  js-status-btn  disabled" data:status="DESATIVAR" data:url="@{/usuarios/status}">
+				<span>Desactivar</span>
+			</button>
+		</div>
+		
+		<div class="table-responsive  sge-tabela-simples">
+			<table class="table  table-hover">
+				<thead>
+					<tr>
+						<th class="table-usuarios-col-status">
+	            			<div class="checkbox  al-checkbox-no-margin">
+	            				<input type="checkbox" class="js-selecao-todos"/>
+	            				<label></label>
+	            			</div>
+	            		</th>
+						
+						<th class="table-col-nome">
+							<sge:order page="${pagina}" field="nome" text="Nombre"/>
+						</th>
+						<th class="table-col-email">  
+							<sge:order page="${pagina}" field="email" text="'Correo electrónico'"/>
+						</th>
+						<th class="table-col-telefone">Teléfono</th>
+						
+						<th class="table-col-telefone">Grupo</th>
+						
+						<th class="table-col-status">Estado</th>
+						
+							
+						<th class="table-col-acoes" sec:authorize="hasRole('ROLE_CADASTRAR_USUARIO')"></th>
+					</tr>
+				</thead>
+				
+				<tbody>
+					<tr th:each="usuario : ${pagina.conteudo}">
+						<td>
+							<div class="checkbox  al-checkbox-no-margin" th:if="${#authentication.principal.usuario.codigo != usuario.codigo}">
+	            				<input type="checkbox" class="js-selecao" data:codigo="${usuario.codigo}">
+	            				<label></label>
+	            			</div>
+						</td>
+						<td th:text="${usuario.nome}">Ailton Luiz</td>
+						<td th:text="${usuario.email}">contato@ailtonluiz.com</td>
+						<td th:text="${usuario.telefone}">(376) 610-680 </td>
+						<td>
+							<span th:each="grupo : ${usuario.gruposUsuarios}" th:text="|${grupo.nome}${grupoStat.last ? '' : ', '}|"></span>
+						</td>
+						<td>
+							<th:block th:if="${usuario.ativo}">
+								<span class="label  label-success">Activo</span>
+							</th:block>
+							<th:block th:if="${not usuario.ativo}">
+								<span class="label  label-danger">Inactivo</span>
+							</th:block>
+						</td>
+						
+						
+						<td class="text-center" sec:authorize="hasRole('ROLE_CADASTRAR_USUARIO')">
+							<a class="btn  btn-link  btn-xs" title="Editar" th:href="@{/usuarios/{codigo}(codigo=${usuario.codigo})}">  
+								<i class="glyphicon glyphicon-pencil"></i>
+							</a>
+							<a class="btn  btn-link  btn-xs  js-tooltip  js-exclusao-btn" title="Eliminar" href="#" 
+									data:url="@{/usuarios/{codigo}(codigo=${usuario.codigo})}"
+									data:objeto="${usuario.nome}">
+								<i class="glyphicon glyphicon-remove"></i>
+							</a>
+						</td>
+					</tr>
+					<tr th:if="${pagina.vazia}">
+						<td colspan="7">No se han encontrado usuarios</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+	 <sge:pagination page="${pagina}" />
+	
+	</div>
+
+</section>
+
+<th:block layout:fragment="javascript-extra">
+	<script>
+			$('.js-status').bootstrapSwitch();
+	</script>
+</th:block>
+</body>
+</html>

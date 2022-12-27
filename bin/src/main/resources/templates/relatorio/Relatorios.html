@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/LayoutPadrao}">
+
+<head>
+<title>Informes de gestíon</title>
+</head>
+
+<section layout:fragment="conteudo">
+
+	<div class="page-header">
+		<div class="container-fluid">
+			<h1>Informes de gestíon</h1>
+		</div>
+	</div>
+
+	<div class="container-fluid">
+	<div class="row">
+		<a class="link" th:href="@{/relatorios/estoquesGeral}">
+			<div class="col-sm-4">
+				<div class="al-box">
+					<div class="al-box__icon">
+						<i class="fa  fa-file-text  fa-3x"></i>
+					</div>
+					<div class="al-box__value js-tooltip" 	title="Informe de artículos con stocks">
+						Informe
+					</div>
+					<div class="al-box__title">de artículos con stocks</div>
+				</div>
+			</div>
+		</a>
+		
+		<a class="link" th:href="@{/relatorios/estoquesGrupoMarca}">
+			<div class="col-sm-4">
+				<div class="al-box">
+					<div class="al-box__icon">
+						<i class="fa  fa-file-text  fa-3x"></i>
+					</div>
+					<div class="al-box__value js-tooltip" title="Informe de artículos con stocks por seccíon">
+						Informe 
+					</div>
+					<div class="al-box__title">de artículos con stocks por seccíon</div>
+				</div>
+			</div>
+		</a>
+		<a class="link" th:href="@{/relatorios/estoquesGeralSemEstoque}">
+			<div class="col-sm-4">
+				<div class="al-box">
+					<div class="al-box__icon">
+						<i class="fa  fa-file-text  fa-3x"></i>
+					</div>
+					<div class="al-box__value js-tooltip" title="Informe de artículos sin stocks">
+						Informe
+					</div>
+					<div class="al-box__title">de artículos sin stocks</div>
+				</div>
+			</div>
+		</a>
+	</div>
+	
+	<div class="row">
+		<a class="link" th:href="@{/relatorios/relatorioSaidaProduto}">
+			<div class="col-sm-4">
+				<div class="al-box">
+					<div class="al-box__icon">
+						<i class="fa  fa-file-text  fa-3x"></i>
+					</div>
+					<div class="al-box__value js-tooltip" 	title="Informe de salida de artículos por seccíon">
+						Informe
+					</div>
+					<div class="al-box__title">de salida de artículos por seccíon</div>
+				</div>
+			</div>
+		</a>
+		
+		<a class="link" th:href="@{/relatorios/relatorioSaidaProdutoGeral}">
+			<div class="col-sm-4">
+				<div class="al-box">
+					<div class="al-box__icon">
+						<i class="fa  fa-file-text  fa-3x"></i>
+					</div>
+					<div class="al-box__value js-tooltip" title="Informe de salida de artículos general">
+						Informe 
+					</div>
+					<div class="al-box__title">de salida de artículos general</div>
+				</div>
+			</div>
+		</a>
+		<a class="link" th:href="@{/relatorios/relatorioSugestaoCompra}">
+			<div class="col-sm-4">
+				<div class="al-box">
+					<div class="al-box__icon">
+						<i class="fa  fa-file-text  fa-3x"></i>
+					</div>
+					<div class="al-box__value js-tooltip" title="Sugerencia de compra por seccíon">
+						Sugerencia
+					</div>
+					<div class="al-box__title">de compra por seccíon</div>
+				</div>
+			</div>
+		</a>
+	</div>
+			
+	<div class="row">
+		<a class="link" th:href="@{/relatorios/relatorioSugestaoCompraGeral}">
+			<div class="col-sm-4">
+				<div class="al-box">
+					<div class="al-box__icon">
+						<i class="fa  fa-file-text  fa-3x"></i>
+					</div>
+					<div class="al-box__value js-tooltip" 	title="Sugerencia de compra general">
+							Sugerencia
+					</div>
+					<div class="al-box__title">de compra general</div>
+				</div>
+			</div>
+		</a>
+		
+		<a class="link" th:href="@{/relatorios/estoqueTabaco}">
+			<div class="col-sm-4">
+				<div class="al-box">
+					<div class="al-box__icon">
+						<i class="fa  fa-file-text  fa-3x"></i>
+					</div>
+					<div class="al-box__value js-tooltip" title="Informe stock tabaco">
+						Informe 
+					</div>
+					<div class="al-box__title">stock tabaco</div>
+				</div>
+			</div>
+		</a>
+		
+		<a class="link" th:href="@{/relatorios/estoquesPendentes}">
+			<div class="col-sm-4">
+				<div class="al-box">
+					<div class="al-box__icon">
+						<i class="fa  fa-file-text  fa-3x"></i>
+					</div>
+					<div class="al-box__value js-tooltip" title="Informe general de artículos no apto para el consumo">
+						Informe
+					</div>
+					<div class="al-box__title">artículos no apto para el consumo</div>
+				</div>
+			</div>
+		</a>
+	</div>		
+			
+	<div class="row">
+<!-- 		<a class="link" th:href="@{/relatorios/vendasEmitidas}"> -->
+<!-- 			<div class="col-sm-4"> -->
+<!-- 				<div class="al-box"> -->
+<!-- 					<div class="al-box__icon"> -->
+<!-- 						<i class="fa  fa-file-text  fa-3x"></i> -->
+<!-- 					</div> -->
+<!-- 					<div class="al-box__value js-tooltip" 	title="Informe de comandas de salidas"> -->
+<!-- 							Informe -->
+<!-- 					</div> -->
+<!-- 					<div class="al-box__title">de comandas de salidas</div> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
+<!-- 		</a> -->
+		
+		<a class="link" th:href="@{/relatorios/comprasEntradas}">
+			<div class="col-sm-4">
+				<div class="al-box">
+					<div class="al-box__icon">
+						<i class="fa  fa-file-text  fa-3x"></i>
+					</div>
+					<div class="al-box__value js-tooltip" title="Informe de entradas de artículos">
+						Informe 
+					</div>
+					<div class="al-box__title">entradas artículos</div>
+				</div>
+			</div>
+		</a>
+		
+		<a class="link" th:href="@{/relatorios/relatorioClientes}">
+			<div class="col-sm-4">
+				<div class="al-box">
+					<div class="al-box__icon">
+						<i class="fa  fa-file-text  fa-3x"></i>
+					</div>
+					<div class="al-box__value js-tooltip" title="Informe tiendas">
+						Informe
+					</div>
+					<div class="al-box__title">tiendas</div>
+				</div>
+			</div>
+		</a>
+		<a class="link" th:href="@{/relatorios/relatorioFornecedor}">
+			<div class="col-sm-4">
+				<div class="al-box">
+					<div class="al-box__icon">
+						<i class="fa  fa-file-text  fa-3x"></i>
+					</div>
+					<div class="al-box__value js-tooltip" 	title="Informe proveedores">
+							Informe
+					</div>
+					<div class="al-box__title">proveedores</div>
+				</div>
+			</div>
+		</a>
+	</div>	
+		
+	<div class="row">
+		
+		
+<!-- 		<a class="link" th:href="@{/relatorios/relatorioUsuario}"> -->
+<!-- 			<div class="col-sm-4"> -->
+<!-- 				<div class="al-box"> -->
+<!-- 					<div class="al-box__icon"> -->
+<!-- 						<i class="fa  fa-file-text  fa-3x"></i> -->
+<!-- 					</div> -->
+<!-- 					<div class="al-box__value js-tooltip" title="Informe usuarios"> -->
+<!-- 						Informe  -->
+<!-- 					</div> -->
+<!-- 					<div class="al-box__title">usuarios</div> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
+<!-- 		</a> -->
+		
+	
+	</div>		
+
+	</div>
+</section>
+<th:block layout:fragment="javascript-extra">
+	<script>
+		$('.js-status').bootstrapSwitch();
+	</script>
+</th:block>
+</html>

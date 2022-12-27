@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="'layout/LayoutPadrao'"
+	xmlns:sge="http://sge.ailtonluiz.com">
+
+<head>
+<title>SGS | Registro de Subgrupo de Productos</title>
+</head>
+
+
+<section layout:fragment="conteudo">
+
+
+	<div class="page-header">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-sm-10">
+					<h1 th:if="${subgrupoProdutos.novo}">Registro de Subgrupo de
+						Productos</h1>
+					<h1 th:unless="${subgrupoProdutos.novo}"
+						th:text="|Edición de ${subgrupoProdutos.nome}|">Edición de Subgrupo de productos</h1>
+				</div>
+
+				<div class="col-sm-2">
+					<div class="al-page-header-controls">
+						<a class="btn  btn-default" th:href="@{/subgruposProdutos}"> <i
+							class="glyphicon  glyphicon-search"></i> <span
+							class="hidden-xs  hidden-sm">Búsqueda</span>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="container-fluid">
+
+
+		<form method="POST" th:object="${subgrupoProdutos}"
+			class="form-vertical  js-form-loading"
+			th:action="@{/subgruposProdutos/novo} ? @{/subgruposProdutos/novo} : @{/subgruposProdutos/ {codigo} (codigo=${subgrupoProdutos.codigo})}">
+			<sge:message />
+			<input type="hidden" th:field="*{codigo}" />
+			<div class="row">
+
+				
+					<div class="form-group  col-sm-4 sge-required" sge:classforerror="grupoProdutos">
+						<label for="grupoProdutos" class="control-label">Grupo producto</label>
+						<select id="grupoProdutos" class="form-control" th:field="*{grupoProdutos}">
+							<option value="">Seleccione o grupo</option>
+							<option th:each="grupoProdutos : ${gruposProdutos}" th:value="${grupoProdutos.codigo}" th:text="${grupoProdutos.nome}">Geral</option>
+						</select>
+					</div>
+				
+
+
+				<div class="col-sm-6  form-group" sge:classforerror="nome">
+					<label for="nome" class="control-label">Nombre</label> <input
+						id="nome" type="text" class="form-control" autofocus="autofocus"
+						th:field="*{nome}" />
+				</div>
+
+				<div class="col-sm-2  form-group">
+					<label class="control-label">Estado</label>
+					<div>
+						<input type="checkbox" class="js-status" data-size="small"
+							data-off-color="danger" data-on-text="Activo"
+							data-off-text="Inactivo" th:field="*{ativo}" />
+					</div>
+				</div>
+			</div>
+
+
+			<div class="form-group">
+				<button class="btn  btn-primary" type="submit">Guardar</button>
+			</div>
+
+		</form>
+	</div>
+
+</section>
+<th:block layout:fragment="javascript-extra">
+	<script th:src="@{/javascripts/vendors/bootstrap-switch.min.js}"></script>
+	<script>
+		$('.js-status').bootstrapSwitch();
+	</script>
+</th:block>
+
+</html>

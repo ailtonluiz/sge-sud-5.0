@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="'layout/LayoutPadrao'"
+      xmlns:sge="http://sge.ailtonluiz.com">
+
+<head>
+	<title>SGS | Registro de artículos</title>
+	<link rel="stylesheet" th:href="@{/stylesheets/vendors/upload.min.css}"/>
+</head>
+<body>
+
+
+
+<section layout:fragment="conteudo">
+
+        <div class="page-header">
+            <div class="container-fluid">
+               <div class="row">
+					<div class="col-sm-10">
+						<h1 th:if="${produto.novo}">Registro de artículos</h1>
+						<h1 th:unless="${produto.novo}" th:text="|Edición de ${produto.nomeProduto}|">Edición de artículo</h1>
+					</div>
+			
+					<div class="col-sm-2">
+						<div class="al-page-header-controls">
+							<a class="btn  btn-default" th:href="@{/produtos}">
+								<i class="glyphicon  glyphicon-search"></i> <span class="hidden-xs  hidden-sm">Búsqueda</span>
+							</a>
+						</div>
+					</div>
+			</div>
+            </div>
+        </div>
+
+        <div class="container-fluid">
+
+       		
+
+            <form method="POST" th:object="${produto}" class="form-vertical  js-form-loading" 
+          			  th:action="${produto.novo} ? @{/produtos/novo} : @{/produtos/{codigo}(codigo=${produto.codigo})}">
+            	
+            	<sge:message />
+            	
+            	<input type="hidden" th:field="*{codigo}" />
+							
+
+                <div class="row">
+                    <div class="col-sm-2  form-group sge-required" sge:classforerror="codigoBarras">
+                        <label for="codigoBarras" class="control-label">Código de Barra</label>
+                        <div class="input-group">
+	                        <div class="input-group-addon glyphicon glyphicon-barcode"></div>
+	                        <input id="codigoBarras" type="text" class="form-control" 
+	                        	th:field="*{codigoBarras}" maxlength="14" 
+	                        	 onkeypress="return event.charCode >= 48 && event.charCode <= 57" />
+                        </div>	 
+                    </div>
+
+
+                    <div class="col-sm-8  form-group  sge-required" sge:classforerror="nomeProduto">
+                        <label for="nomeProduto" class="control-label">Nombre</label>
+                        <input id="nomeProduto" type="text" class="form-control" th:field="*{nomeProduto}"/>
+                    </div>
+                     
+                     <div class="form-group  col-sm-2 sge-required" sge:classforerror="unidade">
+						<label for="unidade" class="control-label">Unidad</label>
+						<select id="unidade" class="form-control" th:field="*{unidade}">
+							<option value="" tabindex="-1">Unidad</option>
+		                    <option th:each="unidade : ${unidades}" th:value="${unidade}" th:text="${unidade.desc}">MT</option>
+		                </select>
+
+				     </div>
+				     
+				    <div class="col-sm-2  form-group" sge:classforerror="ativo">
+                  		 <label for="ativo" class="control-label">Estado</label>
+						<div>
+							<input type="checkbox" id="ativo" checked="checked" class="js-status" data-size="small" data-off-color="danger" data-on-text="Activo" data-off-text="Inactivo" th:field="*{ativo}" />
+						</div>
+              	    </div>   
+                    
+                    
+                </div>
+
+                 <div class="row">
+                 
+                      
+	                  <div class="col-sm-2  form-group" sge:classforerror="referencia">
+							<label for="referencia" class="control-label">Referencia</label>
+                         	 	<input id="referencia" type="text" class="form-control js-tooltip" title="Introduzca la referencia del artículo" th:field="*{referencia}"/>
+	                  </div>
+	                  
+	                  
+		              <div class="col-sm-2  form-group" sge:classforerror="quantidadeEstoque">
+	                        <label for="estoque" class="control-label">Stock</label>
+							<input id="estoque" type="number" class="form-control  js-plain  js-tooltip" title="Introduzca la cantidad"th:field="*{quantidadeEstoque}"
+								onkeypress="return event.charCode >= 48 && event.charCode <= 57"/>
+	                  </div>
+	                  
+	                  <div class="col-sm-2  form-group  sge-required" sge:classforerror="quantidadeEstoqueMinimo">
+	                        <label for="estoqueMinimo" class="control-label">Stock mínimo</label>
+	                        <input id="estoqueMinimo" type="number" class="form-control  js-plain  js-tooltip" title="Introduzca la cantidad" th:field="*{quantidadeEstoqueMinimo}" 
+	                        	onkeypress="return event.charCode >= 48 && event.charCode <= 57"/>
+	                  </div>
+	                  
+	                  <div class="col-sm-2  form-group  sge-required" sge:classforerror="quantidadeCaixa">
+	                        <label for="quantidadeCaixa" class="control-label">Cant. caja</label>
+	                        <input id="quantidadeCaixa" type="number" class="form-control  js-plain  js-tooltip" title="Cantidad de la caja" th:field="*{quantidadeCaixa}" 
+	                        	onkeypress="return event.charCode >= 48 && event.charCode <= 57"/>
+	                  </div>
+	                  <div class="col-sm-2  form-group  sge-required" sge:classforerror="quantidadeEstoquePendente">
+	                        <label for="quantidadeEstoquePendente" class="control-label">Stock roto</label>
+	                        <input id="quantidadeEstoquePendente" type="number" class="form-control  js-plain  js-tooltip" title="Cantidad de la caja" th:field="*{quantidadeEstoquePendente}" 
+	                        	onkeypress="return event.charCode >= 48 && event.charCode <= 57"/>
+	                  </div>
+	                  
+	                  <div class="col-sm-2  form-group" sge:classforerror="quantidadeQuilo">
+								 <label for="quantidadeQuilo" class="control-label">Kg / Und</label>
+		                             <div class="input-group">
+			                          
+			                            <input id="quantidadeQuilo" type="number" step="0.001" min=0 class="form-control js-tooltip" title="Ingrese la cantidad que viene en el paquete" th:field="*{quantidadeQuilo}"/>
+		                            </div>
+		              </div>
+	                    
+	               
+	                    
+	                  
+                </div>
+
+                <div class="row">
+                
+                	 <div class="col-sm-3  form-group sge-required" sge:classforerror="marca">
+	                        <label for="marca" class="control-label">Marca</label>
+	                        	<div class="sge-field-action">
+									<select id="marca" class="form-control" th:field="*{marca}">
+										<option value="">Seleccionar una marca</option>
+										<option th:each="marca : ${marcas}" th:value="${marca.codigo}" th:text="${marca.nome}" >Skip</option>
+								   </select>
+								   
+								   <div class="sge-field-action__icon">
+								   		<a href="#" data-toggle="modal" data-target="#modalCadastroRapidoMarca">
+								   			<i class="glyphicon  glyphicon-plus-sign  bw-glyphicon-large"></i>
+								   		</a>
+								   </div>
+							   </div>
+	                   </div>
+	                   
+      			 	<div class="col-sm-3  form-group  sge-required" sge:classforerror="grupoProdutos">
+                     	<label for="grupo" class="control-label">Sección</label>
+		                     <div class="sge-field-action">
+								<select id="grupo"  class="form-control" th:field="*{grupoProdutos}">
+									<option value="">Seleccionar una Sección</option>
+									<option th:each="grupoProdutos : ${gruposProdutos}" th:value="${grupoProdutos.codigo}" th:text="${grupoProdutos.nome}">Limpeza</option>
+								
+		                		</select>
+		                		
+		               	    	<div class="sge-field-action__icon">
+							   		<a href="#" data-toggle="modal" data-target="#modalCadastroRapidoGrupo">
+						   				<i class="glyphicon  glyphicon-plus-sign  bw-glyphicon-large"></i>
+							   		</a>
+							   </div>
+						   </div>
+              	   </div>
+                 
+	                  <div class="col-sm-3  form-group" sge:classforerror="custoCompra">
+							 <label for="custoCompra" class="control-label">Costo Compra</label>
+	                             <div class="input-group">
+		                            <div class="input-group-addon">€</div>
+		                            <input id="custoCompra" type="text" class="form-control  js-decimal" th:field="*{custoCompra}"/>
+	                            </div>
+	                  </div>
+	                  
+	                  <div class="col-sm-3  form-group" sge:classforerror="custoVenda">
+							 <label for="custoVenda" class="control-label">Costo Venta</label>
+	                        <div class="input-group">
+	                            <div class="input-group-addon">€</div>
+	                            <input id="custoVenda" type="text" class="form-control  js-decimal" th:field="*{custoVenda}"/>
+	                        </div>
+	                  </div>
+	                  
+	                  <div class="col-sm-12">
+	                   <label for="quantidadePalet" class="control-label">Pallet</label>
+		                             <div class="input-group">
+			                          
+			                            <input id="quantidadePalet" type="number" step="0.001" min=0 class="form-control js-tooltip" title="Ingrese la cantidad que viene en el paquete" th:field="*{quantidadePalet}"/>
+		                            </div>
+	                  </div>
+	                  
+	         
+              	   
+            	  
+	              
+	                  
+               
+                
+
+			  <div class="row">
+					<div class="form-group  col-sm-12">
+						<input type="hidden" th:field="*{foto}">
+						<input type="hidden" th:field="*{contentType}">
+						<input type="hidden" th:field="*{novaFoto}">
+					
+						<label class="control-label">Foto</label>
+						
+						<div class="js-container-foto-produto" th:attr="data-url-fotos=@{/fotos}">
+							<div id="upload-drop" class="sge-upload">
+								<i class="glyphicon  glyphicon-cloud-upload"></i>
+								<span>Arrastre la foto aquí o </span>
+								<a class="sge-upload-form-file">seleccione <input id="upload-select" type="file" accept=".jpg,.jpeg,.png"/></a>
+							</div>
+						</div>
+					</div>
+				</div>
+
+                <div class="form-group">
+                    <button class="btn  btn-primary" type="submit">Guardar</button>
+                </div>
+
+            </form>
+        </div>
+        <div th:replace="marca/CadastroRapidoMarca :: modalMarca"></div>
+        <div th:replace="grupo/CadastroRapidoGrupo :: modalGrupo"></div>
+        
+        <th:block th:replace="hbs/FotoProduto"></th:block>
+</section>
+
+<th:block layout:fragment="javascript-extra">
+	<script th:src="@{/javascripts/grupo_produtos.cadastro-rapido.js}"></script>
+	<script th:src="@{/javascripts/marca.cadastro-rapido.js}"></script>
+	<script th:src="@{/javascripts/produto.upload-foto.js}"></script>
+	<script th:src="@{/javascripts/vendors/bootstrap-switch.min.js}"></script>
+	<script th:src="@{/javascripts/vendors/uikit.min.js}"></script>
+	<script th:src="@{/javascripts/vendors/upload.min.js}"></script>
+	<script th:src="@{/javascripts/vendors/handlebars.min.js}"></script>
+	<script>
+			$('.js-status').bootstrapSwitch();
+	</script>
+</th:block>
+</body>
+</html>

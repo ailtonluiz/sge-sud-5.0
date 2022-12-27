@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/LayoutPadrao}"
+	xmlns:sge="http://sge.ailtonluiz.com"
+	xmlns:data="http://www.thymeleaf.org/extras/data"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+	
+<head>
+	<title>SGS | Búsqueda de Empresa</title>
+</head>
+
+<body>
+<section layout:fragment="conteudo">
+	<div class="page-header">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-sm-10">
+					<h1>Búsqueda de parametro</h1>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="container-fluid">
+		<form method="GET" th:object="${parametroFilter}">
+			<div class="row">
+								
+				<div class="form-group  col-sm-12" >
+					<label class="control-label" for="nome">Nombre</label>
+					<input type="text" class="form-control" id="nome" th:field="*{nomeEmpresa}"/>
+				</div>
+			</div>
+			
+			<div class="row">
+			
+				<div class="form-group  col-sm-3" >
+					<label class="control-label" for="responsavel">Responsable</label>
+					<input type="text" class="form-control" id="responsavel" th:field="*{responsavel}"/>
+				</div>
+				<div class="form-group  col-sm-4" >
+					<label class="control-label" for="email">Correo electrónico</label>
+					<input type="text" class="form-control" id="email" th:field="*{email}"/>
+				</div>
+			
+				<div class="form-group  col-sm-3" >
+					<label class="control-label" for="telefone">Teléfono</label>
+					<input type="text" class="form-control" id="telefone" th:field="*{telefone}"/>
+				</div>						
+			
+				
+				<div class="col-sm-2  form-group">
+                  		 <label for="ativo" class="control-label">Estado</label>
+						<div>
+							<input type="checkbox" id="ativo" checked="checked" class="js-status" 
+							     data-size="small" data-off-color="danger" data-on-text="Activo"
+								 data-off-text="Inactivo" th:field="*{ativo}" />
+						</div>
+              	</div>  
+				
+			</div>
+			
+			<button type="submit" class="btn  btn-primary">Búsqueda</button>
+		</form>
+		
+		<div class="table-responsive  sge-tabela-simples">
+			<table class="table  table-hover">
+				<thead>
+					<tr>
+						
+						<th class="table-col-nome">
+							<sge:order page="${pagina}" field="nome" text="Nombre"/>
+						</th>
+						<th class="table-col-telefone">Teléfono</th>
+						<th class="table-col-responsavel">
+						<sge:order page="${pagina}" field="responsavel" text="Responsable"/>
+						</th>
+						<th class="table-col-email">Correo electrónico</th>
+						<th class="table-col-status">Estado</th>
+						<th class="table-col-acoes"></th>
+					</tr>
+				</thead>
+				
+				<tbody>
+					<tr th:each="parametro : ${pagina.conteudo}">
+						<td th:text="${parametro.nomeEmpresa}">Ailton Luiz</td>
+						<td th:text="${parametro.telefone}">(376) 610-680 </td>
+						<td th:text="${parametro.responsavel}">(376) 610-680 </td>
+						<td th:text="${parametro.email}">contato@ailtonluiz.com</td>
+						<td>
+							<th:block th:if="${parametro.ativo}">
+								<span class="label  label-success">Activo</span>
+							</th:block>
+							<th:block th:if="${not parametro.ativo}">
+								<span class="label  label-danger">Inactivo</span>
+							</th:block>
+						</td>
+						
+						
+						<td class="text-center">
+							<a class="btn  btn-link  btn-xs  js-tooltip" title="Editar" 
+									th:href="@{/parametros/{codigo}(codigo=${parametro.codigo})}"> 
+								<i class="glyphicon glyphicon-pencil"></i>
+							</a>
+							
+							
+						</td>
+					</tr>
+					<tr th:if="${pagina.vazia}">
+						<td colspan="7">No se han encontrado Empresas</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+	 <sge:pagination page="${pagina}" />
+	
+	</div>
+
+</section>
+
+<th:block layout:fragment="javascript-extra">
+	<script>
+			$('.js-status').bootstrapSwitch();
+	</script>
+</th:block>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:data="http://www.thymeleaf.org/extras/data">
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("form").keypress(function(e) {
+			if (e.which == 13) {
+				return false;
+			}
+		});
+	});
+</script>
+			
+		<div class="sge-tabela-item  js-tabela-item" th:each="item : ${itens}" data:valor-total="${valorTotal}">
+		<div class="sge-tabela-item__coluna  sge-tabela-item__coluna--foto">
+			<img th:src="@{/fotos/thumbnail.{foto}(foto=${item.produto.fotoOuMock})}" class="img-responsive"/>
+			
+		</div>
+		
+		<div class="sge-tabela-item__coluna  sge-tabela-item__coluna--detalhes">
+			<span class="sge-tabela-produto-nome" th:text="|${item.produto.nomeProduto}  -  CAJA C/ ${item.produto.quantidadeCaixa}|">Nome do produto</span>
+			<span class="label  label-default" th:text="${item.produto.codigoBarras}">Codigo de Barras</span>
+			<span class="label label-success" th:text="|Marca: ${item.produto.marca.nome}">Marca</span>
+			<span class="label label-primary" th:text="|Ref. ${item.produto.referencia}">Referencia</span>
+			<span class="label  label-danger" th:text="|Stock: ${item.produto.quantidadeEstoque}">Estoque</span>
+
+		</div>
+		
+		<div class="sge-tabela-item__coluna  sge-tabela-item__coluna--valores">
+			<div class="sge-tabela-produto-valor-pequeno">
+				<input type="text" maxlength="8" 
+					class="sge-tabela-produto-campo-quantidade  js-tabela-produto-quantidade-item"
+					th:value="${item.quantidade}" data:codigo-produto="${item.produto.codigo}" th:disabled="${venda != null ? venda.salvarProibido : false}"/>
+				<span>x €[[${{item.valorUnitario}}]]</span>
+			</div>
+			<div class="sge-tabela-produto-valor-grande">€ [[${{item.valorTotal}}]]</div>
+		</div>
+		
+		<div class="sge-tabela-item__painel-exclusao">
+			<span class="sge-tabela-item__titulo-exclusao">¿Eliminar este artículo de la venta?</span>
+			<button type="button" class="btn  btn-danger  js-exclusao-item-btn" data:codigo-produto="${item.produto.codigo}">¡Sí, borra!</button>
+		</div>
+	
+	</div>
+	
+	<div class="sge-tabela-produtos__vazio" th:if="${itens.empty}">
+		<i class="glyphicon  glyphicon-shopping-cart"></i> 
+		<span>Aún no ha añadido ningún artículos.</span>
+	</div>
+</html>				
+						
+						
+						
+						
+						

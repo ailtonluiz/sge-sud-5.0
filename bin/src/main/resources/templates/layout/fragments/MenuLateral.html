@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sge="http://sge.ailtonluiz.com">
+	
+<body>
+<aside class="al-layout-sidebar  js-sidebar" th:fragment="layout-sidebar">
+	<div class="al-layout-sidebar__content">
+
+    	<nav class="al-menu  js-menu">
+      		<ul class="al-menu__list">
+
+        		<li class="al-menu__item" sge:menu="@{/}">
+          			<a th:href="@{/}"><i class="fa  fa-fw  fa-bar-chart"></i><span>Dashboard</span></a>
+        		</li>
+        		
+        		<li class="al-menu__item">
+          			<a href="#">
+            			<i class="fa  fa-fw  fa-database"></i><span>Registros</span>
+            			<i class="al-menu__navigation-icon  fa"></i>
+          			</a>
+
+          			<ul class="al-menu__list  al-menu__list--sublist">
+          			
+          				<li class="al-menu__item  al-menu__item--link js-tooltip" title="Registro de artículos" sge:menu="@{/produtos.*}">
+			         	   <a th:href="@{/produtos}">Artículos</a>
+			            </li>
+          			
+          				<li class="al-menu__item  al-menu__item--link js-tooltip" title="Registro de marcas" sge:menu="@{/marcas.*}">
+			         	   <a th:href="@{/marcas}">Marca</a>
+			            </li>
+			            
+			            <li class="al-menu__item  al-menu__item--link js-tooltip" title="Registro de secciones" sge:menu="@{/gruposProdutos.*}">
+			         	   <a th:href="@{/gruposProdutos}">Secciones</a>
+			            </li>
+          			
+			            <li class="al-menu__item  al-menu__item--link js-tooltip" title="Registro de tiendas" sge:menu="@{/clientes.*}">
+			            	<a th:href="@{/clientes}">Tiendas</a>
+			            </li>
+			            
+			            <li class="al-menu__item  al-menu__item--link js-tooltip" title="Registro de prooveedores" sge:menu="@{/fornecedores.*}">
+			            	<a th:href="@{/fornecedores}">Proveedores</a>
+			            </li>
+			           
+<!-- 			            <li class="al-menu__item  al-menu__item--link js-tooltip" title="Registro de usuarios" sge:menu="@{/usuarios.*}"> -->
+<!-- 			            	<a th:href="@{/usuarios}">Usuarios</a> -->
+<!-- 			            </li> -->
+          			</ul>
+        		</li>
+        		
+        		<li class="al-menu__item">
+          			<a href="#">
+            			<i class="fa  fa-fw  fa-truck"></i><span>Stock</span>
+            			<i class="al-menu__navigation-icon  fa"></i>
+          			</a>
+      
+          			<ul class="al-menu__list  al-menu__list--sublist">
+          			
+	         			<li class="al-menu__item  al-menu__item--link js-tooltip" title="Salidas del artículos" sge:menu="@{/vendas/novo}">
+			            	<a th:href="@{/vendas/novo}">Salida del artículo</a>
+			            </li>
+	         			<li class="al-menu__item  al-menu__item--link js-tooltip" title="Búsqueda del salida" sge:menu="@{/vendas}">
+			            	<a th:href="@{/vendas}">Búsqueda del salida</a>
+			            </li>
+			            <li class="al-menu__item  al-menu__item--link js-tooltip" title="Entrada del artículos" sge:menu="@{/compras/novo}">
+			            	<a th:href="@{/compras/novo}">Entrada del artículo</a>
+			            </li>
+			            <li class="al-menu__item  al-menu__item--link js-tooltip" title="Búsqueda del entrada"  sge:menu="@{/compras}">
+			            	<a th:href="@{/compras}">Búsqueda del entrada</a>
+			            </li>
+
+			            
+          			</ul>
+        		</li>
+        		
+        		<li class="al-menu__item" sge:menu="@{/relatorios}">
+          			<a th:href="@{/relatorios}">
+            			<i class="fa  fa-fw  fa-file-text"></i>
+            			<span>Informes de gestión</span>
+          			</a>
+      
+        		</li>
+        		
+        		<li class="al-menu__item">
+          			<a href="#">
+            			<i class="fa  fa-fw  fa-cogs"></i><span>Parámetros</span>
+            			<i class="al-menu__navigation-icon  fa"></i>
+          			</a>
+      
+          			<ul class="al-menu__list  al-menu__list--sublist">
+		         		 <li class="al-menu__item  al-menu__item--link js-tooltip" title="Ajustes" sge:menu="@{/parametros.*}">
+				            	<a th:href="@{/parametros}">Ajustes</a>
+			            </li>
+			        
+          			</ul>
+        		</li>
+        		
+        		
+
+        		
+      		</ul>
+    	</nav>
+	</div>
+</aside>
+</body>
+</html>

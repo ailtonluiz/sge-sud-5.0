@@ -1,0 +1,320 @@
+/*
+######################
+# UTILIDADES
+######################
+*/
+.sge-glyphicon-large {
+	font-size: 18px;
+}
+
+.sge-required>.control-label:after {
+	content: "*";
+}
+
+/*
+######################
+# COMPONENTES
+######################
+*/
+
+/* Field Action */
+.sge-field-action {
+	display: flex;
+}
+
+.sge-field-action__icon {
+	margin: 6px 0 0 5px;
+}
+
+/* Upload */
+.sge-upload {
+	padding: 15px;
+	border: 1px dashed #ddd;
+	border-radius: 4px;
+	background: #fafafa;
+	text-align: center;
+}
+
+.sge-upload-form-file {
+	display: inline-block;
+	vertical-align: middle;
+	position: relative;
+	overflow: hidden;
+	margin-bottom: 1px;
+}
+
+.sge-upload-form-file>input[type=file] {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 1;
+	width: 100%;
+	opacity: 0;
+	cursor: pointer;
+	font-size: 500px;
+}
+
+/* Tabela Simples */
+.sge-tabela-simples {
+	margin-top: 15px;
+}
+
+.sge-tabela-simples table tr th {
+	border-bottom-width: 1px;
+}
+
+.sge-tabela-simples table tr td {
+	border-top: none;
+	border-bottom: 1px solid #e7eaec;
+	padding: 10px;
+	vertical-align: middle;
+}
+
+/*
+###################
+# PÃ�GINAS DO SISTEMA
+###################
+*/
+
+/* Colunas - Pesquisa */
+.table-col-email {
+	width: 220px;
+}
+
+.table-col-responsavel {
+	width: 150px;
+}
+
+.table-col-nome {
+	width: 400px;
+}
+
+.table-col-telefone {
+	width: 150px;
+}
+
+.table-col-acoes {
+	width: 80px;
+}
+
+.table-col-codigo {
+	width: 80px;
+}
+
+.table-col-status {
+	width: 80px;
+}
+
+/* Colunas - Pesquisa de usuÃ¡rios */
+.table-usuarios-col-status {
+	width: 30px;
+	text-align: center;
+}
+
+/* Colunas - Pesquisa de Produtos */
+.table-produtos-col-foto {
+	min-width: 50px;
+	width: 50px
+}
+
+.table-produtos-col-codigoBarras {
+	width: 125px;
+	text-align: center;
+}
+
+.table-produtos-col-referencia {
+	width: 80px;
+	text-align: center;
+}
+
+.table-produtos-col-nome {
+	
+}
+
+.table-produtos-col-marca {
+	width: 70px;
+}
+
+.table-produtos-col-estoque {
+	width: 70px;
+	text-align: center;
+}
+
+.table-produtos-col-grupo {
+	width: 70px;
+}
+
+.table-produtos-col-valor {
+	width: 70px;
+	text-align: right;
+}
+
+/* Tabela Produtos pÃ¡gina de Venda */
+.sge-tabela-produtos {
+	margin-bottom: 15px;
+}
+
+.sge-tabela-produtos__vazio {
+	padding: 15px 15px;
+	border: 1px dashed #ddd;
+	text-align: center;
+	font-size: 1.2em;
+	font-weight: 300;
+	color: #555;
+}
+
+/*
+######################################
+# CUSTOMIZAÃ‡ÃƒO DE COMPONENTES
+######################################
+*/
+.checkbox input[type="checkbox"]:checked+input+label::after {
+	font-family: 'FontAwesome';
+	content: "\f00c";
+}
+
+/* Easy Autocomplete */
+.easy-autocomplete input {
+	border-radius: 2px !important;
+}
+
+.easy-autocomplete-container ul li {
+	font-size: 1em !important;
+	padding: 0px 5px !important;
+}
+
+/* Tabela Item */
+.sge-tabela-item {
+	position: relative;
+	/* Para que o painel de exclusÃ£o apareÃ§a dentro da linha */
+	padding: 15px 0;
+	user-select: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+}
+
+.sge-tabela-item:after {
+	clear: both;
+	display: block;
+	content: "";
+}
+
+.sge-tabela-item ~ .sge-tabela-item {
+	border-top: 1px solid #ddd;
+}
+
+.sge-tabela-item__coluna {
+	padding: 0 10px;
+}
+
+.sge-tabela-item__coluna--foto {
+	float: left;
+	width: 60px;
+	text-align: center;
+}
+
+.sge-tabela-item__coluna--valores {
+	padding-right: 0px;
+}
+
+.sge-tabela-item__coluna--detalhes, .sge-tabela-item__coluna--valores {
+	margin-left: 60px;
+}
+
+.sge-tabela-produto-nome {
+	font-weight: 700;
+	font-size: 1.1em;
+	display: block;
+}
+
+.sge-tabela-produto-marca {
+	color: #aaa;
+	display: block;
+	font-weight: 200;
+}
+
+.sge-tabela-produto-campo-quantidade {
+	width: 50px;
+	text-align: right;
+}
+
+.sge-tabela-produto-valor-pequeno {
+	font-weight: 300;
+	font-size: 1em;
+}
+
+.sge-tabela-produto-valor-medio {
+	font-weight: 300;
+	font-size: 1.3em;
+}
+
+.sge-tabela-produto-valor-grande {
+	font-weight: 300;
+	font-size: 1.6em;
+}
+
+.sge-tabela-item__painel-exclusao {
+    position: absolute;
+    top: 0;
+    right: 100000px;
+	height: 100%;
+    width: 50%;
+    
+    text-align: center;
+    padding-top: 35px;
+    
+	background-color: #f0ad4e;
+	
+	opacity: 0;
+	transition: opacity 0.5s;
+}
+
+.solicitando-exclusao .sge-tabela-item__painel-exclusao {
+	right: 0;
+	opacity: 1;
+}
+
+.sge-tabela-item__titulo-exclusao {
+    display: block;
+    margin-bottom: 5px;
+    
+	color: #fff;
+    font-size: 1.3em;
+}
+
+.link {
+	color: #333333;
+}
+
+
+@media ( min-width : 768px) { /* screen-sm-min */
+	.sge-tabela-item__coluna {
+		float: left;
+		margin-left: 0px;
+	}
+	.sge-tabela-item__coluna--detalhes {
+		width: calc(70% - 30px);
+	}
+	.sge-tabela-item__coluna--valores {
+		width: calc(30% - 30px);
+		text-align: right;
+	}
+	@media ( min-width : 768px) { /* screen-sm-min */
+		.sge-tabela-item__painel-exclusao {
+			width: 40%;
+			padding-top: 10px;
+		}
+		.sge-tabela-item__coluna {
+			float: left;
+			margin-left: 0px;
+		}
+		.sge-tabela-item__coluna--detalhes {
+			width: calc(70% - 30px);
+		}
+		.sge-tabela-item__coluna--valores {
+			width: calc(30% - 30px);
+			text-align: right;
+		}
+	}
+}

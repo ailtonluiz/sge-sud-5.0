@@ -1,0 +1,21 @@
+<script id="template-autocomplete-produto"
+	type="text/x-handlebars-template">
+	<div class="sge-tabela-item">
+		<div class="sge-tabela-item__coluna  sge-tabela-item__coluna--foto">
+			<img th:src="@{/fotos/thumbnail.{{foto}}}" class="img-responsive" />
+		</div>
+		<div class="sge-tabela-item__coluna  sge-tabela-item__coluna--detalhes">
+			<span class="sge-tabela-produto-nome">{{nomeProduto}} - CAJA C/ {{quantidadeCaixa}} </span>
+			<span class="label  label-default">{{codigoBarras}} </span>
+			<span class="label label-success">Marca: {{marca}} </span>
+			<span class="label label-primary">Ref: {{referencia}} </span>
+			<span class="label  label-danger">Stock: {{quantidadeEstoque}} </span>
+			
+
+			
+		</div>
+		<div class="sge-tabela-item__coluna  sge-tabela-item__coluna--valores">
+			<div class="sge-tabela-produto-valor-medio">€ {{valorFormatado}}</div>
+		</div>
+	</div>
+</script>

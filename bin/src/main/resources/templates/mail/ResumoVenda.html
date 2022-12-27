@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<body style="font-family: Arial; font-size: 12px;">
+
+<h1 style="font-size: 12px; text-align: center;" th:text="|${venda.usuario.parametro.nomeEmpresa}|">Olá Maria!</h1>	
+
+
+	
+	<h1 style="font-size: 12px" th:text="|Para la tienda: ${venda.cliente.nome}|">Cliente!</h1>
+	<h1 style="font-size: 10px" th:text="|Emitido por: ${venda.usuario.nome}|">Usuario</h1>
+	<h1 style="font-size: 10px" th:text="|Fecha de creación: ${#temporals.format(venda.dataCriacao, 'dd/MM/yyyy HH:mm')}|">Data</h1>
+	<h1 style="font-size: 10px" th:text="|Comanda Nº: ${venda.codigo}|">Nº Pedido</h1>
+	
+<!-- 	<p> -->
+<!-- 		<h1 style="font-size: 16px; text-align: center" th:text="|Comanda: Nº ${venda.codigo}|">Olá Maria!</h1> -->
+	
+<!-- 	</p> -->
+	
+	<table style="width: 100%; border-collapse: collapse;  margin: 20px 0">
+		<th:block th:each="item : ${venda.itens}">
+			<tr style="border-bottom: 1px solid #ccc; border-top: 1px solid #ccc">
+
+				<td style="vertical-align: top; padding-bottom: 5px; padding-top: 5px">
+					<div style="display: block; font-weight: bold; font-size: 10px"  th:text="|[  ] ${item.quantidade} X ${item.produto.nomeProduto} - CAJA C/ ${item.produto.quantidadeCaixa} |">Bhrama Lata 350 ml</div>
+						<div style="color: black; font-weight: bold; font-size: 10px" th:text="|Ref: ${item.produto.referencia} - Cód. Barras: ${item.produto.codigoBarras}  -  Stock Disp.: ${item.produto.quantidadeEstoque}|">Nacional</div>
+<!-- 					<div style="color: #8e8e8e" th:text="|Stock Disponi: ${item.produto.marca.nome}|">Nacional</div> -->
+<!-- 					<div style="color: #8e8e8e" th:text="|CJ C/ ${item.produto.quantidadeCaixa}|">1</div> -->
+					
+				</td>
+				
+			</tr>
+			
+
+		</th:block>
+	</table>
+	
+
+	
+	<p style="font-size: 16px">
+		* Observación: <strong style="color: black;"><span th:text="${venda.observacao}">orçamento</span></strong>.
+	</p>
+	
+	<table style="width: 100%;">
+		
+	
+		
+	</table>
+	
+	
+
+	
+
+	
+</body>
+</html>

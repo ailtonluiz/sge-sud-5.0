@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+  <title>SGE</title>
+
+  <link rel="stylesheet" type="text/css" th:href="@{/layout/stylesheets/vendors.min.css}"/>
+  <link rel="stylesheet" type="text/css" th:href="@{/layout/stylesheets/ailtonluiz.min.css}"/>
+
+</head>
+
+<body class="al-layout-simple-page">
+  <div class="al-layout-simple-page__container">
+	
+	<div class="al-error-panel">
+		<h1 class="al-error-panel__code">
+			<i class="fa  fa-warning"></i>
+		</h1>
+		
+		<h2 class="aw-error-panel__title">Sesión cerrada</h2>
+		
+		<div class="al-error-panel__description">
+			El usuario ha iniciado sesión en otro terminal.
+			Si cree que esto es un error, póngase en contacto con nosotros.
+			<br/><br/>
+			<a href="javascript:history.back()" class="btn  btn-primary">Vuelve a donde estabas.</a>
+		</div>
+	</div>
+
+</div>
+
+</body>
+</html>

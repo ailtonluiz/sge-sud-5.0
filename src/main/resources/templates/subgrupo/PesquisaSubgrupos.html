@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="'layout/LayoutPadrao'"
+	xmlns:sge="http://sge.ailtonluiz.com"
+	xmlns:data="http://www.thymeleaf.org/extras/data"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+	
+	
+<head>
+	<title>SGS | Búsqueda del subgrupo de productos</title>
+</head>
+ 
+<body>
+<section layout:fragment="conteudo">
+	<div class="page-header">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-sm-10">
+					<h1>Búsqueda del subgrupo de productos</h1>
+				</div>
+				
+				<div class="col-sm-2">
+					<div class="al-page-header-controls">
+						<a class="btn  btn-default" th:href="@{/subgruposProdutos/novo}">
+							<i class="glyphicon  glyphicon-plus-sign"></i> <span class="hidden-xs  hidden-sm">Nuevo</span>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="container-fluid">
+		<form method="GET" th:object="${subgrupoProdutosFilter}">
+			<div class="row">
+			<div class="form-group  col-sm-2">
+					<label for="estado">Grupo</label>
+					<select id="estado" class="form-control" th:field="*{grupoProdutos}">
+					<option value="">Todos</option>
+	                    <option th:each="grupoProdutos : ${gruposProdutos}" th:value="${grupoProdutos.codigo}" th:text="${grupoProdutos.nome}">São Paulo</option>
+	                </select>
+				</div>
+			
+				<div class="form-group  col-sm-8">
+					<label class="control-label" for="nome">Nombre subgrupo</label>
+					<input type="text" class="form-control" id="grupo" autofocus="autofocus" th:field="*{nome}"/>
+				</div>
+				
+				<div class="col-sm-2  form-group">
+                  		 <label for="ativo" class="control-label">Estado</label>
+						<div>
+							<input type="checkbox" id="ativo" checked="checked" class="js-status" data-size="small" data-off-color="danger" data-on-text="Activo" data-off-text="Inactivo" th:field="*{ativo}" />
+						</div>
+              	</div>  
+			</div>
+			
+			<button type="submit" class="btn  btn-primary">Búsqueda</button>
+		</form>
+		
+		<div class="table-responsive  sge-tabela-simples">
+			<table class="table  table-hover">
+				<thead>
+					<tr>
+<!-- 						<th class="table-col-codigo">Código</th> -->
+<!-- 						<th class="table-col-codigo">Grupo</th> -->
+						<th class="table-col-nome">
+							<sge:order page="${pagina}" field="nome" text="'Grupo / Subgrupo'"/>
+						</th>
+						<th class="table-col-status">Estado</th>
+						<th class="table-col-acoes"></th>
+					</tr>
+				</thead>
+				
+				<tbody>
+					<tr th:each="subgrupoProdutos : ${pagina.conteudo}">
+<!-- 						<td class="text-center" th:text="${subgrupoProdutos.codigo}">1</td> -->
+<!-- 						<td th:text="${subgrupoProdutos.grupoProdutos.nome}">Pale Lager</td> -->
+						<td th:text="|${subgrupoProdutos.grupoProdutos.nome} / ${subgrupoProdutos.nome}"|>Pale Lager</td>
+					
+						<td>
+							<th:block th:if="${subgrupoProdutos.ativo}">
+								<span class="label  label-success">Activo</span>
+							</th:block>
+							<th:block th:if="${not subgrupoProdutos.ativo}">
+								<span class="label  label-danger">Inactivo</span>
+							</th:block>
+						</td>
+						<td class="text-center">
+							<a class="btn  btn-link  btn-xs  js-tooltip" title="Editar" 
+									th:href="@{/subgruposProdutos/{codigo}(codigo=${subgrupoProdutos.codigo})}"> 
+								<i class="glyphicon glyphicon-pencil"></i>
+							</a>
+							<a class="btn  btn-link  btn-xs  js-tooltip  js-exclusao-btn" title="Eliminar" href="#" 
+									data:url="@{/subgruposProdutos/{codigo}(codigo=${subgrupoProdutos.codigo})}"
+									data:objeto="${subgrupoProdutos.nome}">
+								<i class="glyphicon glyphicon-remove"></i>
+							</a>
+						</td>
+					</tr>
+					<tr th:if="${pagina.vazia}">
+						<td colspan="3">No se han encontrado grupos</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		
+		<sge:pagination page="${pagina}" />
+		
+	</div>
+
+</section>
+<th:block layout:fragment="javascript-extra">
+	<script>
+			$('.js-status').bootstrapSwitch();
+	</script>
+</th:block>
+</body>
+</html>

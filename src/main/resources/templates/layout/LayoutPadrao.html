@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <title>SGS - Sistema de Gestión de Stocks</title>
+
+    <link rel="stylesheet" type="text/css" th:href="@{/layout/stylesheets/vendors.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/layout/stylesheets/ailtonluiz.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/layout/stylesheets/application.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/stylesheets/sge.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/stylesheets/vendors/bootstrap-switch.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/stylesheets/vendors/bootstrap-datepicker.standalone.min.css}"/>
+    <link rel="shortcut icon" th:href="@{/images/favicon.ico}"/>
+
+</head>
+
+<body>
+<input type="hidden" name="_csrf" th:value="${_csrf.token}" />
+<input type="hidden" name="_csrf_header" th:value="${_csrf.headerName}" />
+
+<div class="al-layout-page">
+   
+   
+	<div th:replace="layout/fragments/BarraNavegacao :: navbar"></div>
+	
+	<div th:replace="layout/fragments/MenuLateral :: layout-sidebar"></div>
+	
+	    
+    <section class="al-layout-content  js-content" layout:fragment="conteudo"></section>
+	
+	<div th:replace="layout/fragments/Footer :: layout-footer"></div>
+
+
+    
+
+</div>
+    
+<script th:src="@{/layout/javascripts/vendors.min.js}"></script>
+<script th:src="@{/layout/javascripts/ailtonluiz.min.js}"></script>
+<script th:src="@{/javascripts/vendors/jquery.maskMoney.min.js}"></script>
+<script th:src="@{/javascripts/vendors/jquery.mask.min.js}"></script>
+<script th:src="@{/javascripts/vendors/bootstrap-switch.min.js}"></script>
+
+<script th:src="@{/javascripts/vendors/bootstrap-datepicker.min.js}"></script>
+<script th:src="@{/javascripts/vendors/bootstrap-datepicker.pt-BR.min.js}"></script>
+
+<script th:src="@{/javascripts/vendors/numeral.min.js}"></script>
+<script th:src="@{/javascripts/vendors/pt-br.min.js}"></script>
+<script th:src="@{/javascripts/sge.js}"></script>
+<script th:src="@{/javascripts/multiselecao.js}"></script>
+<script th:src="@{/javascripts/sge.dialogo-excluir.js}"></script>
+
+<th:block layout:fragment="javascript-extra">
+
+</th:block>
+
+</body>
+</html>

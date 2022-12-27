@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:data="http://www.thymeleaf.org/extras/data"
+	xmlns:sge="http://sge.ailtonluiz.com"
+	layout:decorate="~{layout/LayoutPadrao}">
+
+<head>
+<title>Historial de versiones</title>
+</head>
+
+<section layout:fragment="conteudo">
+
+	<div class="page-header">
+		<div class="container-fluid">
+			<div class="col-sm-12">
+				<h1 style="text-align: center">Historial de versiones</h1>
+			</div>
+		</div>
+	</div>
+	<div class="container-fluid">
+
+		<h3>
+			03/01/2023 <strong class="text-info">Version 5.0.0</strong>
+		</h3>
+		<h3>
+			11/04/2022 <strong class="text-info">Version 4.3.0</strong>
+		</h3>
+		<p>Mejoras internas.</p>
+		<p>Mejora el diseño del correo electrónico.</p>
+		<h3>
+			03/04/2022 <strong class="text-info">Version 4.2.0</strong>
+		</h3>
+		<p>Mejoras internas.</p>
+
+		<h3>
+			01/04/2022 <strong class="text-info">Version 4.1.0</strong>
+		</h3>
+		<p>Implementado el baja de bienes vencidos y/o dañados.</p>
+		<p>Cambió la imagen del logo.</p>
+
+		<h3>
+			27/03/2022 <strong class="text-info"> Version 4.0.0</strong>
+		</h3>
+		<p>Se actualizaron algunas bibliotecas (mejoras internas).</p>
+		<p>Mejorar el diseño de los informes de gestión.</p>
+
+		<h3>
+			03/01/2021 <strong class="text-info">Version 3.0.0</strong>
+		</h3>
+		<p>Cambio en el informe de salida para mostrar la cantidad de
+			cajas.</p>
+
+
+	</div>
+
+
+
+
+
+</section>
+
+<th:block layout:fragment="javascript-extra">
+	<script th:src="@{/javascripts/vendors/Chart.min.js}"></script>
+	<script th:src="@{/javascripts/dashboard.graficos.js}"></script>
+</th:block>
+
+</html>

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/LayoutPadrao}"
+	xmlns:sge="http://sge.ailtonluiz.com"
+	xmlns:data="http://www.thymeleaf.org/extras/data">
+
+<head>
+<title>SGS | Registro de salidas</title>
+<link rel="stylesheet"
+	th:href="@{/stylesheets/vendors/easy-autocomplete.min.css}" />
+<link rel="stylesheet"
+	th:href="@{/stylesheets/vendors/easy-autocomplete.themes.min.css}" />
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("form").keypress(function(e) {
+			if (e.which == 13) {
+				return false;
+			}
+		});
+	});
+</script>
+</head>
+
+<section layout:fragment="conteudo">
+
+	<div class="page-header">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-xs-10">
+					<h1 th:if="${venda.nova}">Registro de salidas</h1>
+
+					<h1 th:unless="${venda.nova}"
+						th:text="|Edición de salida Nº ${venda.codigo} ${venda.cliente.nome}|">Edición de salida</h1>
+
+				</div>
+				<div class="col-sm-2">
+					<div class="al-page-header-controls">
+						<a class="btn  btn-default" th:href="@{/vendas}"> <i
+							class="glyphicon  glyphicon-search"></i> <span
+							class="hidden-xs  hidden-sm">Búsqueda</span>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="container-fluid">
+		<form method="POST" th:action="@{/vendas/novo}" th:object="${venda}"
+			class="js-formulario-principal">
+			<sge:message />
+
+			<input type="hidden" id="uuid" th:field="*{uuid}" /> <input
+				type="hidden" th:field="*{codigo}" /> <input type="hidden"
+				th:field="*{usuario}" />
+
+			<div class="row">
+				<div class="col-sm-4">
+					<div class="al-box">
+						<div class="al-box__icon">
+							<i class="fa  fa-usd  fa-3x"></i>
+						</div>
+						<div class="al-box__value">
+							€ <span class="js-valor-total-box"
+								th:text="${{venda.valorTotal}}"> 0,00 </span>
+						</div>
+						<div class="al-box__title">Total</div>
+					</div>
+				</div>
+
+				<div class="col-sm-4">
+					<div class="al-box">
+						<div class="al-box__icon">
+							<i class="fa  fa-tag  fa-3x"></i>
+						</div>
+						<div class="al-box__value" th:text="${venda.status.descricao}">Presupuesto</div>
+						<div class="al-box__title">Estado</div>
+					</div>
+				</div>
+
+				<div class="col-sm-4">
+					<div class="al-box">
+						<div class="al-box__icon">
+							<i class="fa  fa-calendar  fa-3x"></i>
+						</div>
+						<div class="al-box__value">
+							<span class="js-tooltip" th:if="${venda.diasCriacao == 0}">Hoy</span>
+							<span class="js-tooltip" th:if="${venda.diasCriacao == 1}">Hay
+								1 dáa</span> <span class="js-tooltip" th:if="${venda.diasCriacao > 1}">Hay
+								[[${venda.diasCriacao}]] días</span>
+						</div>
+						<div class="al-box__title">Creación</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="form-group  col-sm-12  sge-required"
+					sge:classforerror="cliente.codigo">
+					<label class="control-label" for="nomeCliente">Tienda</label>
+					<div class="input-group">
+						<input id="nomeCliente" type="text" th:field="*{cliente.nome}"
+							readonly="readonly" class="form-control"
+							placeholder="Haga clic en la lupa para encontrar la tienda" /> <input
+							id="codigoCliente" type="hidden" th:field="*{cliente}" /> <span
+							class="input-group-btn">
+							<button class="btn  btn-default  js-tooltip" type="button"
+								title="Búsqueda avanzada" data-toggle="modal"
+								data-target="#pesquisaRapidaClientes"
+								th:disabled="${venda.salvarProibido}">
+								<i class="glyphicon  glyphicon-search"></i>
+							</button>
+						</span>
+					</div>
+
+
+				</div>
+
+			</div>
+
+			<div class="row">
+				<div class="form-group  col-lg-12">
+					<ul class="nav nav-tabs  js-abas-venda">
+						<li role="presentation" class="active"><a href="#produtos">Artículos</a></li>
+						<li role="presentation"><a href="#observacao">Observación</a></li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="tab-content">
+				<div class="tab-pane active" id="produtos">
+
+					<div class="row">
+						<div class="form-group  col-lg-12">
+							<input type="text"
+								class="form-control  js-barra-nome-referencia-produto-input"
+								id="produto"
+								placeholder="Buscar y añadir el artículo por código de barras o nombre o referencia"
+								autofocus="autofocus" data:url="@{/produtos}"
+								th:disabled="${venda.salvarProibido}" />
+						</div>
+					</div>
+
+
+
+					<div class="sge-tabela-produtos  js-tabela-produtos-container"
+						data:valor="${valorTotalItens}">
+
+						<th:block th:replace="venda/TabelaItensVenda" />
+
+					</div>
+				</div>
+
+				<div class="tab-pane" id="observacao">
+
+
+					<div class="row">
+						<div class="form-group  col-sm-12">
+							<textarea class="form-control" rows="5" th:field="*{observacao}"
+								maxlength="200" placeholder="¿Alguna observación  de esa orden?"
+								th:disabled="${venda.salvarProibido}"></textarea>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row" style="clear: both">
+
+
+				<div class="col-lg-12">
+					<div class="btn-group" th:if="${venda.nova} OR ${venda.orcamento}">
+						<button type="submit" class="btn  btn-primary  js-submit-btn"
+							data:acao="enviarEmail" onclick="">Imprimir</button>
+						<button type="button" class="btn  btn-primary  dropdown-toggle"
+							data-toggle="dropdown">
+							<span class="caret"></span>
+						</button>
+
+
+						<ul class="dropdown-menu">
+							<li><a href="#" class="js-submit-btn" data:acao="emitir"
+								th:if="${venda.salvarPermitido}">Emitir</a></li>
+							<!-- 							<li><a href="#" class="js-submit-btn" data:acao="baixaMercadoria" >Mercancías rota</a></li> -->
+						</ul>
+					</div>
+
+					<button class="btn  btn-danger  js-submit-btn" data:acao="cancelar"
+						th:unless="${venda.nova} OR ${venda.cancelado}">Cancelar</button>
+					<button type="submit" class="btn  btn-warning  js-submit-btn"
+						data:acao="baixaMercadoria" onclick="">Mercancías rota</button>
+				</div>
+			</div>
+		</form>
+	</div>
+	<th:block
+		th:replace="cliente/PesquisaRapidaClientes :: pesquisaRapidaClientes"></th:block>
+	<th:block th:replace="hbs/TemplateAutocompleteProduto"></th:block>
+</section>
+
+<th:block layout:fragment="javascript-extra">
+	<script
+		th:src="@{/javascripts/vendors/jquery.easy-autocomplete.min.js}"></script>
+	<script th:src="@{/javascripts/vendors/handlebars.min.js}"></script>
+	<script th:src="@{/javascripts/cliente.pesquisa-rapida.js}"></script>
+	<script th:src="@{/javascripts/venda.autocomplete-itens.js}"></script>
+	<script th:src="@{/javascripts/venda.tabela-itens.js}"></script>
+	<script th:src="@{/javascripts/venda.js}"></script>
+	<script th:src="@{/javascripts/venda.botoes-submit.js}"></script>
+	<script>
+		$(function() {
+			$('.js-abas-venda a').click(function(e) {
+				e.preventDefault();
+				$(this).tab('show');
+			});
+		});
+	</script>
+</th:block>
+
+
+</html>

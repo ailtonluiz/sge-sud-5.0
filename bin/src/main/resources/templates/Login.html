@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+  <meta charset="UTF-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+  <title>SGS - Sistema de Gestión de Stocks</title>
+
+  	<link rel="stylesheet" type="text/css" th:href="@{/layout/stylesheets/vendors.min.css}"/>
+	<link rel="stylesheet" type="text/css" th:href="@{/layout/stylesheets/ailtonluiz.min.css}"/>
+	<link rel="stylesheet" type="text/css" th:href="@{/layout/stylesheets/application.css}"/>
+	<link rel="shortcut icon" th:href="@{/images/favicon.ico}"/>
+
+  
+</head>
+
+<body class="al-layout-simple-page">
+ <div class="al-layout-simple-page__container">
+
+		<form th:action="@{/login}" method="POST">
+			<div class="al-simple-panel">
+				<img alt="SGE" th:src="@{/images/logo_sud-gray.png}" width="250" height="250"/>
+<!-- 				<img alt="SGE" th:src="@{/images/login.png}"/> -->
+<!-- 				<img alt="SGE" th:src="@{/images/logo_makro.png}"/> -->
+				
+				<div class="al-simple-panel__message">
+					Por favor, inicie sesión.
+				</div>
+				
+				<div class="al-simple-panel__message  is-error" th:if="${#bools.isTrue(param.error)}">
+					El correo electrónico y/o la contraseña no confieren
+				</div>
+				
+				<div class="al-simple-panel__box">
+					<div class="form-group  has-feedback">
+						<input type="text" class="form-control  input-lg" placeholder="Su correo electrónico" autofocus="autofocus" name="username"/>
+						<span class="glyphicon  glyphicon-envelope  form-control-feedback"></span>
+					</div>
+					
+					<div class="form-group  has-feedback">
+						<input type="password" class="form-control  input-lg" placeholder="Su contraseña" name="password"/>
+						<span class="glyphicon  glyphicon-lock  form-control-feedback" ></span>
+					</div>
+					<div class="form-group">
+						<button type="submit" class="btn  btn-primary  btn-lg  al-btn-full-width">Iniciar sesión</button>
+					</div>
+					
+				</div>
+			</div>
+			
+		</form>
+		
+		
+
+</div>
+
+
+<script th:src="@{/layout/javascripts/vendors.min.js}"></script>
+<script th:src="@{/layout/javascripts/ailtonluiz.min.js}"></script>
+</body>
+</html>

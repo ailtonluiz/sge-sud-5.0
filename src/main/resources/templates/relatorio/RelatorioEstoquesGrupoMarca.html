@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/LayoutPadrao}">
+
+<head>
+<title>Informe - Stock</title>
+</head>
+
+<section layout:fragment="conteudo">
+
+	<div class="page-header">
+		<div class="container-fluid">
+			<h1>Informe de stocks por sección </h1>
+		</div>
+	</div>
+
+	<div class="container-fluid">
+		<form method="POST" target="_blank" th:object="${filtrosRelatorio}"
+			th:action="@{/relatorios/estoquesGrupoMarca}">
+			<th:block th:include="fragments/MensagensErroValidacao"></th:block>
+
+			<div class="row">
+
+
+			
+				<div class="col-sm-3  form-group">
+					<label for="ativo" class="control-label  js-tooltip" title="Artículos solo con stocks o todos">Stock</label>
+					<div>
+						<input type="checkbox" id="ativo" checked="checked"
+							class="js-status" data-size="small" data-off-color="danger"
+							data-on-text="Stock" data-off-text="Todos"
+							th:field="*{stock}" />
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+
+
+				<div class="form-group  col-sm-3  sge-required">
+					<label for="grupoProdutos" class="control-label">Sección</label> 
+					<select	id="grupoProdutos" class="form-control" th:field="*{grupoProdutos}">
+<!-- 						<option value="">Todas las secciones</option> -->
+						<option th:each="grupoProdutos : ${gruposProdutos}"	th:value="${grupoProdutos.codigo}" th:text="${grupoProdutos.nome}"></option>
+					</select>
+				</div>
+				
+				
+				
+	
+				
+
+
+				
+			</div>
+
+
+			<button type="submit" class="btn  btn-primary">Emitir</button>
+		</form>
+	</div>
+</section>
+<th:block layout:fragment="javascript-extra">
+	<script>
+		$('.js-status').bootstrapSwitch();
+	</script>
+</th:block>
+</html>

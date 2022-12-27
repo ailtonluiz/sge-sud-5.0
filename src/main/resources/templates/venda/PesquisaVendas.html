@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/LayoutPadrao}"
+	xmlns:sge="http://sge.ailtonluiz.com"
+	xmlns:data="http://www.thymeleaf.org/extras/data">
+	
+<head>
+	<title>Búsqueda de salida</title>
+</head>
+
+<body>
+<section layout:fragment="conteudo">
+	<div class="page-header">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-xs-10">
+					<h1>Búsqueda de salida</h1>
+				</div>
+				
+				<div class="col-xs-2">
+					<div class="al-page-header-controls">
+						<a class="btn  btn-default" th:href="@{/vendas/novo}">
+							<i class="glyphicon  glyphicon-plus-sign"></i> <span class="hidden-xs  hidden-sm">Neuva salida</span>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="container-fluid">
+		<form method="GET" th:object="${vendaFilter}" th:action="@{/vendas}">
+			<div class="row">
+				<div class="form-group  col-sm-6">
+					<label class="control-label" for="codigo">Nº Comanda</label>
+					<input type="text" class="form-control" id="codigo" autofocus="autofocus" th:field="*{codigo}"/>
+				</div>
+				
+				<div class="form-group  col-sm-6">
+					<label for="status" class="control-label">Estado</label>
+					<select id="status" class="form-control" th:field="*{status}">
+	                    <option value="">Todos los estados</option>
+	                    <option th:each="status : ${todosStatus}" th:value="${status}" th:text="${status.descricao}"></option>
+	                </select>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="form-group  col-sm-4" >
+					<label for="dataCriacaoInicial">Fecha de creación</label>
+					<div class="form-inline">
+						<input type="text" class="form-control  al-form-control-inline-sm  js-date" id="dataCriacaoInicial" 
+							th:field="*{desde}" autocomplete="off"/>
+						<label for="dataCriacaoFinal" class="al-form-label-between">Hasta</label>
+						<input type="text" class="form-control  al-form-control-inline-sm  js-date" id="dataCriacaoInicial" 
+							th:field="*{ate}" autocomplete="off"/>
+					</div>
+				</div>
+				
+				<div class="form-group  col-sm-8">
+					<label class="control-label" for="nomeCliente">Nombre del la tienda</label>
+					<input type="text" class="form-control" id="nomeCliente" th:field="*{nomeCliente}"/>
+				</div>
+				
+				
+			</div>
+			
+			<div class="row">
+				
+			
+				
+				
+			</div>
+			
+			<button type="submit" class="btn  btn-primary">Búsqueda</button>
+		</form>
+		
+		<div class="table-responsive  sge-tabela-simples">
+			<table class="table  table-hover">
+	            <thead>
+	            	<tr>
+	                	<th>
+	                	<sge:order page="${pagina}" field="codigo" text="'Nº'"/>
+	                	
+	                	<th>
+	                		<sge:order page="${pagina}" field="c.nome" text="Tienda"/>
+	                	</th>
+	                	<th>Fecha de creación</th>
+	                	<th>Estado</th>
+	                 	<th class="table-col-acoes"></th>
+					</tr>
+				</thead>
+				
+	            <tbody>
+					<tr th:each="venda : ${pagina.conteudo}">
+						<td th:text="${venda.codigo}"></td>
+						<td th:text="${venda.cliente.nome}"></td>
+						<td th:text="${{venda.dataCriacao}}"></td>
+						<td th:switch="${venda.status.descricao}">
+								<span th:case="'Emitido'" class="label label-success"	th:text="${venda.status.descricao}"></span>
+								<span th:case="'Presupuesto'" class="label label-danger" th:text="${venda.status.descricao}"></span>
+								<span th:case="'Cancelado'" class="label label-default"	th:text="${venda.status.descricao}"></span>
+								<span th:case="'Mercancías rota'" class="label label-warning" th:text="${venda.status.descricao}"></span>
+						</td>
+	                 	<td class="text-center">
+		   					<a class="btn  btn-link  btn-xs  js-tooltip" title="Editar" 
+		   									th:href="@{/vendas/{codigo}(codigo=${venda.codigo})}">
+		   						<i class="glyphicon glyphicon-pencil"></i>
+		   					</a>
+	                 	</td>
+	                </tr>
+	                
+	                <tr th:if="${pagina.vazia}">
+	                	<td colspan="7">No se ha encontrado ninguna salida</td>
+	                </tr>
+	             </tbody>
+	         </table>
+		</div>
+		
+		<sge:pagination page="${pagina}"/>
+	</div>
+</section>
+
+</body>
+</html>

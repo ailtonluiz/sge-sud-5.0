@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/LayoutPadrao}">
+
+<head>
+<title>Informe - Usuarios</title>
+</head>
+
+<section layout:fragment="conteudo">
+
+	<div class="page-header">
+		<div class="container-fluid">
+			<h1>Informe usuarios</h1>
+		</div>
+	</div>
+
+	<div class="container-fluid">
+		<form method="POST" target="_blank" th:object="${filtrosRelatorio}"
+			th:action="@{/relatorios/relatorioUsuario}">
+			<th:block th:include="fragments/MensagensErroValidacao"></th:block>
+
+			<div class="row">
+
+				
+
+				<div class="col-sm-2  form-group">
+					<label for="ativo" class="control-label">Estado</label>
+					<div>
+						<input type="checkbox" id="ativo" checked="checked"
+							class="js-status" data-size="small" data-off-color="danger"
+							data-on-text="Activo" data-off-text="Inactivo"
+							th:field="*{ativo}" />
+					</div>
+				</div>
+
+
+
+
+
+			</div>
+
+			<button type="submit" class="btn  btn-primary">Emitir</button>
+		</form>
+	</div>
+</section>
+<th:block layout:fragment="javascript-extra">
+	<script>
+		$('.js-status').bootstrapSwitch();
+	</script>
+</th:block>
+</html>
