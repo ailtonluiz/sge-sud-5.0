@@ -8,7 +8,7 @@
 			<ehcache:tti unit="seconds">10</ehcache:tti>
 		</ehcache:expiry>
 		<ehcache:resources>
-			<ehcache:heap unit="entries">3</ehcache:heap>
+			<ehcache:heap unit="entries">4</ehcache:heap>
 		</ehcache:resources>
 	</ehcache:cache>
 </ehcache:config>
