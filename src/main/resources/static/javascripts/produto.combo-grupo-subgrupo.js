@@ -74,7 +74,7 @@ SGE.ComboSubgrupoProdutos = (function() {
 	
 	function reset() {
 		this.combo.html('<option value="">Seleccione o subgrupo</option>');
-		this.combo.val('selecti');
+		this.combo.val('select');
 		this.combo.attr('disabled', 'disabled');
 	}
 	

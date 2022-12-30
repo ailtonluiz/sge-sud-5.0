@@ -19,5 +19,8 @@ public interface ProdutosQueries {
 	public List<ProdutoDTO> porCodigoBarrasOuNomeOuReferenciaCompra(String codigoBarrasOuNomeOuReferenciaCompra);
 
 	public ValorItensEstoque valorItensEstoque();
+	
+	public Produto buscarComSubgrupoProdutosGrupoProdutos(Long codigo);
+	
 
 }

@@ -13,7 +13,7 @@ import com.ailtonluiz.sgs.repository.helper.subgrupo.SubgruposProdutosQueries;
 @Repository
 public interface SubgruposProdutos extends JpaRepository<SubgrupoProdutos, Long>, SubgruposProdutosQueries {
 
-	public List<SubgrupoProdutos> findByGrupoProdutosCodigo(Long codigoGrupoProduto);
+	public List<SubgrupoProdutos> findByGrupoProdutosCodigo(Long codigoGrupoProdutos);
 
 	public Optional<SubgrupoProdutos> findByNomeAndGrupoProdutos(String nome, GrupoProdutos grupoProdutos);
 

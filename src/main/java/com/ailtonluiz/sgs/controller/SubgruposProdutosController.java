@@ -54,23 +54,23 @@ public class SubgruposProdutosController {
 		return mv;
 	}
 
-	@Cacheable(value = "subgrupos", key = "#codigoGrupoProduto")
+	@Cacheable(value = "subgruposProdutos", key = "#codigoGrupoProdutos")
 	@RequestMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody List<SubgrupoProdutos> pesquisarPorCodigoGrupoProduto(
-			@RequestParam(name = "grupoProdutos", defaultValue = "-1") Long codigoGrupoProduto) {
+	public @ResponseBody List<SubgrupoProdutos> pesquisarPorCodigoGrupoProdutos(
+			@RequestParam(name = "grupoProdutos", defaultValue = "-1") Long codigoGrupoProdutos) {
 
 		try {
-			Thread.sleep(1000);
+			Thread.sleep(2000);
 		} catch (InterruptedException e) {
 
 		}
 
-		return subgruposProdutos.findByGrupoProdutosCodigo(codigoGrupoProduto);
+		return subgruposProdutos.findByGrupoProdutosCodigo(codigoGrupoProdutos);
 
 	}
 
 	@PostMapping("/novo")
-	@CacheEvict(value = "subgrupos", key = "#subgrupoProdutos.grupoProdutos.codigo", condition = "#subgrupoProdutos.temGrupoProdutos()")
+	@CacheEvict(value = "subgruposProdutos", key = "#subgrupoProdutos.grupoProdutos.codigo", condition = "#subgrupoProdutos.temGrupoProdutos()")
 	public ModelAndView salvar(@Valid SubgrupoProdutos subgrupoProdutos, BindingResult result, RedirectAttributes attributes) {
 
 		if (result.hasErrors()) {

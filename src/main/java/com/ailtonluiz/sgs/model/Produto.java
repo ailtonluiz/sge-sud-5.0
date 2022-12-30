@@ -42,8 +42,12 @@ public class Produto implements Serializable {
 	@NotBlank(message = "Introduzca el nombre del producto")
 	@Column(name = "nome_produto")
 	private String nomeProduto;
+	
 
 	private String referencia;
+	
+	private String referenciaFornecedor;
+	
 
 	@Column(name = "custo_venda")
 	private BigDecimal custoVenda;
@@ -74,6 +78,12 @@ public class Produto implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "codigo_grupo")
 	private GrupoProdutos grupoProdutos;
+	
+	
+	@NotNull(message = "Introduzca el subgrupo de productos")
+	@ManyToOne
+	@JoinColumn(name = "codigo_subgrupo_produtos")
+	private SubgrupoProdutos subgrupoProdutos;
 
 	@NotNull(message = "Introduzca la marca")
 	@ManyToOne
@@ -105,6 +115,7 @@ public class Produto implements Serializable {
 	@PrePersist
 	@PreUpdate
 	private void prePersistUpdate() {
+		
 		nomeProduto = nomeProduto.toUpperCase();
 		referencia = referencia.toUpperCase();
 
@@ -215,6 +226,16 @@ public class Produto implements Serializable {
 	public void setGrupoProdutos(GrupoProdutos grupoProdutos) {
 		this.grupoProdutos = grupoProdutos;
 	}
+	
+	
+
+	public SubgrupoProdutos getSubgrupoProdutos() {
+		return subgrupoProdutos;
+	}
+
+	public void setSubgrupoProdutos(SubgrupoProdutos subgrupoProdutos) {
+		this.subgrupoProdutos = subgrupoProdutos;
+	}
 
 	public Marca getMarca() {
 		return marca;
@@ -246,6 +267,15 @@ public class Produto implements Serializable {
 
 	public void setContentType(String contentType) {
 		this.contentType = contentType;
+	}
+	
+
+	public String getReferenciaFornecedor() {
+		return referenciaFornecedor;
+	}
+
+	public void setReferenciaFornecedor(String referenciaFornecedor) {
+		this.referenciaFornecedor = referenciaFornecedor;
 	}
 
 	public String getFotoOuMock() {
@@ -316,5 +346,5 @@ public class Produto implements Serializable {
 			return false;
 		return true;
 	}
-
+//js-img-loading  #subgrupoProdutos
 }

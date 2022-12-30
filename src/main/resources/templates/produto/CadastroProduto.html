@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorator="'layout/LayoutPadrao'"
+      layout:decorate="~{layout/LayoutPadrao}"
       xmlns:sge="http://sge.ailtonluiz.com">
 
 <head>
@@ -11,7 +11,7 @@
 </head>
 <body>
 
-
+layout/LayoutPadrao
 
 <section layout:fragment="conteudo">
 
@@ -47,7 +47,31 @@
 							
 
                 <div class="row">
-                    <div class="col-sm-2  form-group sge-required" sge:classforerror="codigoBarras">
+
+
+
+                    <div class="col-sm-8  form-group  sge-required" sge:classforerror="nomeProduto">
+                        <label for="nomeProduto" class="control-label">Descripción</label>
+                        <input id="nomeProduto" type="text" class="form-control" th:field="*{nomeProduto}"/>
+                    </div>
+                     
+
+				     
+				      <div class="col-sm-2  form-group" sge:classforerror="referencia">
+							<label for="referencia" class="control-label">Referencia</label>
+                         	 	<input id="referencia" type="text" class="form-control js-tooltip" title="Introduzca la referencia del artículo" th:field="*{referencia}"/>
+	                  </div>
+	                  
+	                  <div class="col-sm-2  form-group" sge:classforerror="referenciaFornecedor">
+							<label for="referenciaFornecedor" class="control-label">Codigo Proveedor</label>
+                         	 	<input id="referenciaFornecedor" type="text" class="form-control js-tooltip" title="Introduzca la referencia del proveedor del artículo" th:field="*{referenciaFornecedor}"/>
+	                  </div>
+				                   
+                </div>
+                
+                <div class="row">
+				     
+				   <div class="col-sm-2  form-group sge-required" sge:classforerror="codigoBarras">
                         <label for="codigoBarras" class="control-label">Código de Barra</label>
                         <div class="input-group">
 	                        <div class="input-group-addon glyphicon glyphicon-barcode"></div>
@@ -55,43 +79,8 @@
 	                        	th:field="*{codigoBarras}" maxlength="14" 
 	                        	 onkeypress="return event.charCode >= 48 && event.charCode <= 57" />
                         </div>	 
-                    </div>
-
-
-                    <div class="col-sm-8  form-group  sge-required" sge:classforerror="nomeProduto">
-                        <label for="nomeProduto" class="control-label">Nombre</label>
-                        <input id="nomeProduto" type="text" class="form-control" th:field="*{nomeProduto}"/>
-                    </div>
-                     
-                     <div class="form-group  col-sm-2 sge-required" sge:classforerror="unidade">
-						<label for="unidade" class="control-label">Unidad</label>
-						<select id="unidade" class="form-control" th:field="*{unidade}">
-							<option value="" tabindex="-1">Unidad</option>
-		                    <option th:each="unidade : ${unidades}" th:value="${unidade}" th:text="${unidade.desc}">MT</option>
-		                </select>
-
-				     </div>
-				     
-				    <div class="col-sm-2  form-group" sge:classforerror="ativo">
-                  		 <label for="ativo" class="control-label">Estado</label>
-						<div>
-							<input type="checkbox" id="ativo" checked="checked" class="js-status" data-size="small" data-off-color="danger" data-on-text="Activo" data-off-text="Inactivo" th:field="*{ativo}" />
-						</div>
-              	    </div>   
-                    
-                    
-                </div>
-
-                 <div class="row">
-                 
-                      
-	                  <div class="col-sm-2  form-group" sge:classforerror="referencia">
-							<label for="referencia" class="control-label">Referencia</label>
-                         	 	<input id="referencia" type="text" class="form-control js-tooltip" title="Introduzca la referencia del artículo" th:field="*{referencia}"/>
-	                  </div>
-	                  
-	                  
-		              <div class="col-sm-2  form-group" sge:classforerror="quantidadeEstoque">
+                   </div>
+                    <div class="col-sm-2  form-group" sge:classforerror="quantidadeEstoque">
 	                        <label for="estoque" class="control-label">Stock</label>
 							<input id="estoque" type="number" class="form-control  js-plain  js-tooltip" title="Introduzca la cantidad"th:field="*{quantidadeEstoque}"
 								onkeypress="return event.charCode >= 48 && event.charCode <= 57"/>
@@ -108,28 +97,41 @@
 	                        <input id="quantidadeCaixa" type="number" class="form-control  js-plain  js-tooltip" title="Cantidad de la caja" th:field="*{quantidadeCaixa}" 
 	                        	onkeypress="return event.charCode >= 48 && event.charCode <= 57"/>
 	                  </div>
-	                  <div class="col-sm-2  form-group  sge-required" sge:classforerror="quantidadeEstoquePendente">
-	                        <label for="quantidadeEstoquePendente" class="control-label">Stock roto</label>
-	                        <input id="quantidadeEstoquePendente" type="number" class="form-control  js-plain  js-tooltip" title="Cantidad de la caja" th:field="*{quantidadeEstoquePendente}" 
-	                        	onkeypress="return event.charCode >= 48 && event.charCode <= 57"/>
-	                  </div>
 	                  
 	                  <div class="col-sm-2  form-group" sge:classforerror="quantidadeQuilo">
-								 <label for="quantidadeQuilo" class="control-label">Kg / Und</label>
-		                             <div class="input-group">
-			                          
-			                            <input id="quantidadeQuilo" type="number" step="0.001" min=0 class="form-control js-tooltip" title="Ingrese la cantidad que viene en el paquete" th:field="*{quantidadeQuilo}"/>
-		                            </div>
+							<label for="quantidadeQuilo" class="control-label">Kg / Und</label>
+			           		<input id="quantidadeQuilo" type="number" step="0.001" min=0 class="form-control js-tooltip" title="Ingrese la cantidad que viene en el paquete" th:field="*{quantidadeQuilo}"/>
 		              </div>
-	                    
-	               
-	                    
-	                  
+		              
+<!-- 		               <div class="col-sm-2  form-group  sge-required" sge:classforerror="quantidadeEstoquePendente"> -->
+<!-- 	                        <label for="quantidadeEstoquePendente" class="control-label">Stock roto</label> -->
+<!-- 	                        <input id="quantidadeEstoquePendente" type="number" class="form-control  js-plain  js-tooltip" title="Cantidad de la caja" th:field="*{quantidadeEstoquePendente}"  -->
+<!-- 	                        	onkeypress="return event.charCode >= 48 && event.charCode <= 57"/> -->
+<!-- 	                  </div> -->
+
+					  <div class="col-sm-2 form-group">
+	                  		<label for="quantidadePalet" class="control-label">Pallet</label>
+	                            <input id="quantidadePalet" type="number" step="0.001" min=0 class="form-control js-tooltip" title="Ingrese la cantidad que viene en el paquete" th:field="*{quantidadePalet}"/>
+	                  </div>
+                   
+
+				                  
                 </div>
+
+    
 
                 <div class="row">
                 
-                	 <div class="col-sm-3  form-group sge-required" sge:classforerror="marca">
+                   <div class="form-group  col-sm-2 sge-required" sge:classforerror="unidade">
+						<label for="unidade" class="control-label">Unidad</label>
+						<select id="unidade" class="form-control" th:field="*{unidade}">
+							<option value="" tabindex="-1">Unidad</option>
+		                    <option th:each="unidade : ${unidades}" th:value="${unidade}" th:text="${unidade.desc}">MT</option>
+		                </select>
+
+				     </div>
+                
+                	 <div class="col-sm-2  form-group sge-required" sge:classforerror="marca">
 	                        <label for="marca" class="control-label">Marca</label>
 	                        	<div class="sge-field-action">
 									<select id="marca" class="form-control" th:field="*{marca}">
@@ -145,11 +147,11 @@
 							   </div>
 	                   </div>
 	                   
-      			 	<div class="col-sm-3  form-group  sge-required" sge:classforerror="grupoProdutos">
-                     	<label for="grupo" class="control-label">Sección</label>
+      			 	<div class="col-sm-2  form-group  sge-required" sge:classforerror="grupoProdutos">
+                     	<label for="grupoProdutos" class="control-label">Grupo</label>
 		                     <div class="sge-field-action">
-								<select id="grupo"  class="form-control" th:field="*{grupoProdutos}">
-									<option value="">Seleccionar una Sección</option>
+								<select id="grupoProdutos"  class="form-control" th:field="*{grupoProdutos}">
+									<option value="">Seleccionar uno grupo</option>
 									<option th:each="grupoProdutos : ${gruposProdutos}" th:value="${grupoProdutos.codigo}" th:text="${grupoProdutos.nome}">Limpeza</option>
 								
 		                		</select>
@@ -161,39 +163,50 @@
 							   </div>
 						   </div>
               	   </div>
+              	   	<div class="col-sm-2  form-group  sge-required" sge:classforerror="subgrupoProdutos">
+                     	<label for="subgrupoProdutos" class="control-label">Subgrupo</label>
+		                     <div class="sge-field-action">
+		                     	<input type="hidden" id="inputHiddenSubgrupoProdutosSelecionada" th:value="*{subgrupoProdutos} != null ? *{subgrupoProdutos.codigo}"/>
+								<select id="subgrupoProdutos"  class="form-control" data:url="@{/subgruposProdutos}" th:field="*{subgrupoProdutos}">
+								
+		                		</select>
+		                		<div class="sge-field-action__icon  js-img-loading" style="display: none">
+									<img th:src="@{/images/mini-loading.gif}"/>
+								</div>
+		                		
+
+						   </div>
+              	   </div>
                  
-	                  <div class="col-sm-3  form-group" sge:classforerror="custoCompra">
+	               <div class="col-sm-2  form-group" sge:classforerror="custoCompra">
 							 <label for="custoCompra" class="control-label">Costo Compra</label>
 	                             <div class="input-group">
 		                            <div class="input-group-addon">€</div>
 		                            <input id="custoCompra" type="text" class="form-control  js-decimal" th:field="*{custoCompra}"/>
 	                            </div>
-	                  </div>
+	                </div>
 	                  
-	                  <div class="col-sm-3  form-group" sge:classforerror="custoVenda">
+	                <div class="col-sm-2  form-group" sge:classforerror="custoVenda">
 							 <label for="custoVenda" class="control-label">Costo Venta</label>
 	                        <div class="input-group">
 	                            <div class="input-group-addon">€</div>
 	                            <input id="custoVenda" type="text" class="form-control  js-decimal" th:field="*{custoVenda}"/>
 	                        </div>
-	                  </div>
-	                  
-	                  <div class="col-sm-12">
-	                   <label for="quantidadePalet" class="control-label">Pallet</label>
-		                             <div class="input-group">
-			                          
-			                            <input id="quantidadePalet" type="number" step="0.001" min=0 class="form-control js-tooltip" title="Ingrese la cantidad que viene en el paquete" th:field="*{quantidadePalet}"/>
-		                            </div>
-	                  </div>
-	                  
-	         
-              	   
-            	  
-	              
-	                  
-               
-                
-
+	                </div>
+	                
+		      </div>
+		      
+		      <div class="row">
+		      	  <div class="col-sm-2  form-group" sge:classforerror="ativo">
+                  		 <label for="ativo" class="control-label">Estado</label>
+						<div>
+							<input type="checkbox" id="ativo" checked="checked" class="js-status" data-size="small" data-off-color="danger" data-on-text="Activo" data-off-text="Inactivo" th:field="*{ativo}" />
+						</div>
+              	    </div> 
+		      	
+		      </div>
+			
+			
 			  <div class="row">
 					<div class="form-group  col-sm-12">
 						<input type="hidden" th:field="*{foto}">
@@ -225,6 +238,7 @@
 </section>
 
 <th:block layout:fragment="javascript-extra">
+	<script th:src="@{/javascripts/produto.combo-grupo-subgrupo.js}"></script>
 	<script th:src="@{/javascripts/grupo_produtos.cadastro-rapido.js}"></script>
 	<script th:src="@{/javascripts/marca.cadastro-rapido.js}"></script>
 	<script th:src="@{/javascripts/produto.upload-foto.js}"></script>

@@ -3,7 +3,7 @@
 	xmlns:ehcache='http://www.ehcache.org/v3'
 	xsi:schemaLocation="http://www.ehcache.org/v3 http://www.ehcache.org/schema/ehcache-core-3.4.xsd">
 
-	<ehcache:cache alias="subgrupos">
+	<ehcache:cache alias="subgruposProdutos">
 		<ehcache:expiry>
 			<ehcache:tti unit="seconds">10</ehcache:tti>
 		</ehcache:expiry>
@@ -12,3 +12,6 @@
 		</ehcache:resources>
 	</ehcache:cache>
 </ehcache:config>
+
+
+

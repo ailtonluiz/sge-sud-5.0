@@ -12,4 +12,6 @@ import com.ailtonluiz.sgs.repository.helper.produto.ProdutosQueries;
 public interface Produtos extends JpaRepository<Produto, Long>, ProdutosQueries {
 
 	public Optional<Produto> findByCodigoBarras (String codigoBarras);
+
+	
 }

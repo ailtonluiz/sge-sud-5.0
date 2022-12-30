@@ -11,6 +11,7 @@ import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.sql.JoinType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -73,7 +74,7 @@ public class ProdutosImpl implements ProdutosQueries {
 			}
 
 			if (isGrupoPresente(filtro)) {
-				criteria.add(Restrictions.eq("grupoProdutos", filtro.getGrupoProdutos()));
+				criteria.add(Restrictions.eq("subgrupoProdutos", filtro.getSubgrupoProdutos()));
 			}
 
 			if (isMarcaPresente(filtro)) {
@@ -101,7 +102,7 @@ public class ProdutosImpl implements ProdutosQueries {
 	}
 
 	private boolean isGrupoPresente(ProdutoFilter filtro) {
-		return filtro.getGrupoProdutos() != null && filtro.getGrupoProdutos().getCodigo() != null;
+		return filtro.getSubgrupoProdutos() != null && filtro.getSubgrupoProdutos().getCodigo() != null;
 	}
 
 	private boolean isMarcaPresente(ProdutoFilter filtro) {
@@ -113,15 +114,16 @@ public class ProdutosImpl implements ProdutosQueries {
 		String jpql = "select new com.ailtonluiz.sgs.dto.ProdutoDTO(p.codigo, p.codigoBarras, p.nomeProduto, p.custoVenda, p.custoCompra, p.foto, p.referencia, m.nome, p.quantidadeEstoque, p.quantidadeEstoquePendente, p.quantidadeCaixa, p.ativo) "
 				+ "from Produto p inner join p.marca m where p.ativo =  TRUE "
 				+ "and lower(p.nomeProduto) like lower(:codigoBarrasOuNomeOuReferencia) "
-				//+ "and p.quantidadeEstoque > 0 "
+				// + "and p.quantidadeEstoque > 0 "
 				+ "or lower(p.codigoBarras) like lower(:codigoBarrasOuNomeOuReferencia) "
 				+ "or lower(p.referencia) like lower(:codigoBarrasOuNomeOuReferencia)";
 		List<ProdutoDTO> produtosFiltrados = manager.createQuery(jpql, ProdutoDTO.class)
 				.setParameter("codigoBarrasOuNomeOuReferencia", "%" + codigoBarrasOuNomeOuReferencia + "%")
 				.getResultList();
 		return produtosFiltrados;
-		
+
 	}
+
 	@Override
 	public List<ProdutoDTO> porCodigoBarrasOuNomeOuReferenciaCompra(String codigoBarrasOuNomeOuReferenciaCompra) {
 		String jpql = "select new com.ailtonluiz.sgs.dto.ProdutoDTO(p.codigo, p.codigoBarras, p.nomeProduto, p.custoVenda, p.custoCompra, p.foto, p.referencia, m.nome, p.quantidadeEstoque, p.quantidadeEstoquePendente, p.quantidadeCaixa, p.ativo) "
@@ -135,4 +137,14 @@ public class ProdutosImpl implements ProdutosQueries {
 		return produtosFiltradosCompra;
 	}
 
+	@Transactional(readOnly = true)
+	@Override
+	public Produto buscarComSubgrupoProdutosGrupoProdutos(Long codigo) {
+		Criteria criteria = manager.unwrap(Session.class).createCriteria(Produto.class);
+		criteria.createAlias("subgrupoProdutos", "sgp", JoinType.LEFT_OUTER_JOIN);
+		criteria.createAlias("sgp.grupoProdutos", "gp", JoinType.LEFT_OUTER_JOIN);
+		criteria.add(Restrictions.eq("codigo", codigo));
+		
+		return (Produto) criteria.uniqueResult();
+	}
 }
