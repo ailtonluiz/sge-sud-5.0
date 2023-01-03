@@ -3,6 +3,7 @@ package com.ailtonluiz.sgs.repository.filter;
 import java.math.BigDecimal;
 
 import com.ailtonluiz.sgs.model.SubgrupoProdutos;
+import com.ailtonluiz.sgs.model.GrupoProdutos;
 import com.ailtonluiz.sgs.model.Marca;
 import com.ailtonluiz.sgs.model.Unidade;
 
@@ -11,7 +12,9 @@ public class ProdutoFilter {
 	private String nomeProduto;
 	private String codigoBarras;
 	private String referencia;
+	private String referenciaFornecedor;
 	private Marca marca;
+	private GrupoProdutos grupoProdutos;
 	private SubgrupoProdutos subgrupoProdutos;
 	private boolean ativo = true;
 	private BigDecimal valorDe;
@@ -45,6 +48,14 @@ public class ProdutoFilter {
 		this.referencia = referencia;
 	}
 
+	public String getReferenciaFornecedor() {
+		return referenciaFornecedor;
+	}
+
+	public void setReferenciaFornecedor(String referenciaFornecedor) {
+		this.referenciaFornecedor = referenciaFornecedor;
+	}
+
 	public Marca getMarca() {
 		return marca;
 	}
@@ -53,7 +64,13 @@ public class ProdutoFilter {
 		this.marca = marca;
 	}
 
+	public GrupoProdutos getGrupoProdutos() {
+		return grupoProdutos;
+	}
 
+	public void setGrupoProdutos(GrupoProdutos grupoProdutos) {
+		this.grupoProdutos = grupoProdutos;
+	}
 
 	public SubgrupoProdutos getSubgrupoProdutos() {
 		return subgrupoProdutos;

@@ -46,6 +46,7 @@ public class Produto implements Serializable {
 
 	private String referencia;
 	
+	@Column(name = "referencia_fornecedor")
 	private String referenciaFornecedor;
 	
 

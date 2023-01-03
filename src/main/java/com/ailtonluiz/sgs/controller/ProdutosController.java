@@ -29,6 +29,7 @@ import com.ailtonluiz.sgs.model.Unidade;
 import com.ailtonluiz.sgs.repository.GruposProdutos;
 import com.ailtonluiz.sgs.repository.Marcas;
 import com.ailtonluiz.sgs.repository.Produtos;
+import com.ailtonluiz.sgs.repository.SubgruposProdutos;
 import com.ailtonluiz.sgs.repository.filter.ProdutoFilter;
 import com.ailtonluiz.sgs.service.CadastroProdutoService;
 import com.ailtonluiz.sgs.service.exception.CodigoBarrasJaCadastradoException;
@@ -40,6 +41,9 @@ public class ProdutosController {
 
 	@Autowired
 	private GruposProdutos gruposProdutos;
+	
+	@Autowired
+	private SubgruposProdutos subgruposProdutos;
 
 	@Autowired
 	private Marcas marcas;
@@ -54,6 +58,8 @@ public class ProdutosController {
 	public ModelAndView novo(Produto produto) {
 		ModelAndView mv = new ModelAndView("produto/CadastroProduto");
 		mv.addObject("gruposProdutos", gruposProdutos.findAll());
+		mv.addObject("subgruposProdutos", subgruposProdutos.findAll());
+
 		mv.addObject("marcas", marcas.findAll());
 		mv.addObject("unidades", Unidade.values());
 
@@ -86,6 +92,8 @@ public class ProdutosController {
 			@PageableDefault(size = 10) Pageable pageable, HttpServletRequest httpServletRequest) {
 		ModelAndView mv = new ModelAndView("produto/PesquisaProdutos");
 		mv.addObject("gruposProdutos", gruposProdutos.findAll());
+		mv.addObject("subgruposProdutos", subgruposProdutos.findAll());
+
 		mv.addObject("marcas", marcas.findAll());
 
 		PageWrapper<Produto> paginaWrapper = new PageWrapper<>(produtos.filtrar(produtoFilter, pageable),

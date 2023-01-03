@@ -72,9 +72,13 @@ public class ProdutosImpl implements ProdutosQueries {
 			if (!StringUtils.isEmpty(filtro.getReferencia())) {
 				criteria.add(Restrictions.eq("referencia", filtro.getReferencia()));
 			}
-
+			
+			if(!StringUtils.isEmpty(filtro.getReferenciaFornecedor())) {
+				criteria.add(Restrictions.eq("referenciaFornecedor", filtro.getReferenciaFornecedor()));
+			}
+			
 			if (isGrupoPresente(filtro)) {
-				criteria.add(Restrictions.eq("subgrupoProdutos", filtro.getSubgrupoProdutos()));
+				criteria.add(Restrictions.eq("grupoProdutos", filtro.getGrupoProdutos()));
 			}
 
 			if (isMarcaPresente(filtro)) {

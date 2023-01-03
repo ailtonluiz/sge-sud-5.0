@@ -13,6 +13,7 @@ public class ProdutoDTO {
 	private BigDecimal custoCompra;
 	private String foto;
 	private String referencia;
+	private String referenciaFornecedor;
 	private String marca;
 	private Integer quantidadeEstoque;
 	private Integer quantidadeEstoquePendente;
@@ -20,7 +21,7 @@ public class ProdutoDTO {
 	private boolean ativo;
 
 	public ProdutoDTO(Long codigo, String codigoBarras, String nomeProduto, BigDecimal custoVenda,
-			BigDecimal custoCompra, String foto, String referencia, String marca, Integer quantidadeEstoque,
+			BigDecimal custoCompra, String foto, String referencia, String referenciaFornecedor, String marca, Integer quantidadeEstoque,
 			Integer quantidadeEstoquePendente, Integer quantidadeCaixa, boolean ativo) {
 
 		this.codigo = codigo;
@@ -30,6 +31,7 @@ public class ProdutoDTO {
 		this.custoCompra = custoCompra;
 		this.foto = StringUtils.isEmpty(foto) ? "login.png" : foto;
 		this.referencia = referencia;
+		this.referenciaFornecedor = referenciaFornecedor;
 		this.marca = marca;
 		this.quantidadeEstoque = quantidadeEstoque;
 		this.quantidadeEstoquePendente = quantidadeEstoquePendente;
@@ -91,6 +93,16 @@ public class ProdutoDTO {
 
 	public void setReferencia(String referencia) {
 		this.referencia = referencia;
+	}
+	
+	
+
+	public String getReferenciaFornecedor() {
+		return referenciaFornecedor;
+	}
+
+	public void setReferenciaFornecedor(String referenciaFornecedor) {
+		this.referenciaFornecedor = referenciaFornecedor;
 	}
 
 	public String getMarca() {
