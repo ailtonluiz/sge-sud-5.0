@@ -1,231 +1,240 @@
 <!DOCTYPE html>
-<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" 
-	xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{layout/LayoutPadrao}"
-	xmlns:sge="http://sge.ailtonluiz.com"
-	xmlns:data="http://www.thymeleaf.org/extras/data"
-	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
-	
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/LayoutPadrao}"
+      xmlns:sge="http://sge.ailtonluiz.com"
+      xmlns:data="http://www.thymeleaf.org/extras/data"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
 <head>
-	<title>SGS | Búsqueda de artículos</title>
+    <title>SGS | Búsqueda de artículos</title>
 </head>
 
 <body>
 <section layout:fragment="conteudo">
-	<div class="page-header">
-		<div class="container-fluid">
-			<div class="row">
-				<div class="col-sm-10">
-					<h1>Búsqueda de artículos</h1>
-				</div>
-				
-				<div class="col-sm-2"  sec:authorize-url="/produtos/novo">
-					<div class="al-page-header-controls">
-						<a class="btn  btn-default" th:href="@{/produtos/novo}">
-							<i class="glyphicon  glyphicon-plus-sign"></i> <span class="hidden-xs  hidden-sm">Nuevo producto</span>
-						</a>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	
-	<div class="container-fluid">
-		<form method="GET" th:object="${produtoFilter}">
-			<div class="row">
-				<div class="form-group  col-sm-3" >
-					<label class="control-label" for="referencia">Referencia</label>
-					<input type="text" class="form-control" id="referencia" th:field="*{referencia}"/>
-				</div>
-				
-				<div class="form-group  col-sm-3" >
-					<label class="control-label" for="referenciaFornecedor">Referencia Proveedor</label>
-					<input type="text" class="form-control" id="referenciaFornecedor" th:field="*{referenciaFornecedor}"/>
-				</div>
-				
-				
-				<div class="form-group  col-sm-3" >
-					<label class="control-label" for="nome">Nombre</label>
-					<input type="text" class="form-control" id="nome" th:field="*{nomeProduto}"/>
-				</div>
-				
-				<div class="form-group  col-sm-3">
-					<label class="control-label" for="codigoBarras">Código de Barra</label>
-					<input type="text" class="form-control" id="codigoBarras" autofocus="autofocus" th:field="*{codigoBarras}"  
-						onkeypress="return event.charCode >= 48 && event.charCode <= 57"/>
-				</div>
-				
-			</div>
-			
-			
-			<div class="row">
-			
-				<div class="form-group  col-sm-3">
-					<label class="control-label" for="marca">Marca</label>
-					<select id="marca" class="form-control" th:field="*{marca}">
-	                    <option value="">Todas las marcas</option>
-	                    <option th:each="marca : ${marcas}" th:text="${marca.nome}" th:value="${marca.codigo}"></option>
-	                </select>
-				</div>
-				
-				<div class="col-sm-2  form-group">
-                     	<label for="grupoProdutos" class="control-label">Grupo</label>
-		                     <div class="sge-field-action">
-								<select id="grupoProdutos"  class="form-control" th:field="*{grupoProdutos}">
-									<option value="">Seleccionar uno grupo</option>
-									<option th:each="grupoProdutos : ${gruposProdutos}" th:value="${grupoProdutos.codigo}" th:text="${grupoProdutos.nome}">Limpeza</option>
-								
-		                		</select>
-		                		
-		               	    	<div class="sge-field-action__icon">
-							   		<a href="#" data-toggle="modal" data-target="#modalCadastroRapidoGrupo">
-						   				<i class="glyphicon  glyphicon-plus-sign  bw-glyphicon-large"></i>
-							   		</a>
-							   </div>
-						   </div>
-              	   </div>
-              	   	<div class="col-sm-2  form-group">
-                     	<label for="subgrupoProdutos" class="control-label">Subgrupo</label>
-		                     <div class="sge-field-action">
-		                     	<input type="hidden" id="inputHiddenSubgrupoProdutosSelecionada" th:value="*{subgrupoProdutos} != null ? *{subgrupoProdutos.codigo}"/>
-								<select id="subgrupoProdutos"  class="form-control"  th:field="*{subgrupoProdutos}">
-								
-		                		</select>
-		                		<div class="sge-field-action__icon  js-img-loading" style="display: none">
-									<img th:src="@{/images/mini-loading.gif}"/>
-								</div>
-		                		
+    <div class="page-header">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-10">
+                    <h1>Búsqueda de artículos</h1>
+                </div>
 
-						   </div>
-              	   	</div>
-				
-<!-- 				<div class="form-group  col-sm-2"> -->
-<!-- 					<label class="control-label" for="grupoProdutos">Sección</label> -->
-<!-- 					<select id="grupo"  class="form-control" th:field="*{grupoProdutos}"> -->
-<!-- 						<option value="">Todas las Secciones</option> -->
-<!-- 						<option th:each="grupoProdutos : ${gruposProdutos}" th:text="${grupoProdutos.nome}" th:value="${grupoProdutos.codigo}"></option> -->
-<!-- 		           </select> -->
-<!-- 				</div> -->
-				
-<!-- 				<div class="form-group  col-sm-2"> -->
-<!--                      	<label for="subgrupoProdutos" class="control-label">Subgrupo</label> -->
-<!-- 		                     <div class="sge-field-action"> -->
-<!-- 		                     	<input type="hidden" id="inputHiddenSubgrupoProdutosSelecionada" th:value="*{subgrupoProdutos} != null ? *{subgrupoProdutos.codigo}"/> -->
-<!-- 								<select id="subgrupoProdutos"  class="form-control" data:url="@{/subgruposProdutos}" th:field="*{subgrupoProdutos}"> -->
-								
-<!-- 		                		</select> -->
-<!-- 		                		<div class="sge-field-action__icon  js-img-loading" style="display: none"> -->
-<!-- 									<img th:src="@{/images/mini-loading.gif}"/> -->
-<!-- 								</div> -->
-		                		
+                <div class="col-sm-2" sec:authorize-url="/produtos/novo">
+                    <div class="al-page-header-controls">
+                        <a class="btn  btn-default" th:href="@{/produtos/novo}">
+                            <i class="glyphicon  glyphicon-plus-sign"></i> <span class="hidden-xs  hidden-sm">Nuevo producto</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<!-- 						   </div> -->
-<!--               	  </div> -->
-						
-<!-- 				<div class="col-sm-3  form-group"> -->
-<!-- 					<label for="precoDe">Precio de venta</label> -->
-<!-- 					<div class="form-inline"> -->
-<!-- 						<input type="text" class="form-control  al-form-control-inline-sm  js-decimal" id="precoDe" th:field="*{valorDe}"/> -->
-<!-- 						<label for="precoAte" class="al-form-label-between">Hasta</label> -->
-<!-- 						<input type="text" class="form-control  al-form-control-inline-sm  js-decimal" id="precoAte" th:field="*{valorAte}"/> -->
-<!-- 					</div> -->
-<!-- 				</div> -->
-				<div class="col-sm-3  form-group">
-					<label for="precoDe">Stock</label>
-					<div class="form-inline">
-						<input type="number" class="form-control  al-form-control-inline-sm" id="estoqueDe" th:field="*{estoqueDe}"/>
-						<label for="estoqueAte" class="al-form-label-between">Hasta</label>
-						<input type="number" class="form-control  al-form-control-inline-sm" id="estoqueAte" th:field="*{estoqueAte}"/>
-					</div>
-				</div>
-				
-				<div class="col-sm-2  form-group">
-                  		 <label for="ativo" class="control-label">Estado</label>
-						<div>
-							<input type="checkbox" id="ativo" checked="checked" class="js-status" data-size="small" data-off-color="danger" data-on-text="Activo" data-off-text="Inactivo" th:field="*{ativo}" />
-						</div>
-              	</div>  
-				
-			</div>
-			
-			<button type="submit" class="btn  btn-primary">Búsqueda</button>
-		</form>
-		
-		<div class="table-responsive  sge-tabela-simples">
-			<table class="table  table-hover">
-				<thead>
-					<tr>
-						<th class="table-produtos-col-foto"></th>
-						<th class="table-produtos-col-codigoBarras">Referencia Proveedor</th>
-						<th class="table-produtos-col-referencia">Referencia</th>
-						<th class="table-col-nome">
-							<sge:order page="${pagina}" field="nomeProduto" text="Nombre"/>
-						</th>
-						<th class="table-produtos-col-estoque">
-							<sge:order page="${pagina}" field="quantidadeEstoque" text="Stock"/>
-						</th>
-						<th class="table-produtos-col-estoque">
-							<sge:order page="${pagina}" field="quantidadeEstoquePendente" text="'S. Roto'"/>
-						</th>
-						<th class="table-produtos-col-marca">
-							<sge:order page="${pagina}" field="marca" text="Marca"/>
-						</th>
-						<th class="table-produtos-col-grupo">
-							<sge:order page="${pagina}" field="grupoProdutos" text="Sección"/>
-						</th>
-<!-- 						<th class="table-produtos-col-valor">Precio</th> -->
-					
-							
-						<th class="table-col-acoes" sec:authorize="hasRole('ROLE_CADASTRAR_PRODUTO')"></th>
-					</tr>
-				</thead>
-				
-				<tbody>
-					<tr th:each="produto : ${pagina.conteudo}">
-						<td class="text-center">
-							<img th:src="@{/fotos/thumbnail.{foto}(foto=${produto.fotoOuMock})}" class="img-responsive"/>
-						</td>
-						<td class="text-center" th:text="${produto.referenciaFornecedor}">8412127891234</td>
-						<td class="text-center" th:text="${produto.referencia}">8412127891234</td>
-						<td th:text="|${produto.nomeProduto} CJ C/ ${produto.quantidadeCaixa}|">Coca-cola lata 330ml</td>
-						<td class="text-center" th:text="${produto.quantidadeEstoque}">100</td>
-						<td class="text-center" th:text="${produto.quantidadeEstoquePendente}">100</td>
-						<td th:text="${produto.marca.nome}">Marca</td>
-						<td th:text="${produto.grupoProdutos.nome}">Grupo</td>
-<!-- 						<td class="text-right" th:text="|€ ${produto.custoVenda}|">€ 8.00</td> -->
-						
-						<td class="text-center" sec:authorize="hasRole('ROLE_CADASTRAR_PRODUTO')">
-							<a class="btn  btn-link  btn-xs  js-tooltip" title="Editar" 
-									th:href="@{/produtos/{codigo}(codigo=${produto.codigo})}"> 
-								<i class="glyphicon glyphicon-pencil"></i>
-							</a>
-							<a class="btn  btn-link  btn-xs  js-tooltip  js-exclusao-btn" title="Eliminar" href="#" 
-									data:url="@{/produtos/{codigo}(codigo=${produto.codigo})}"
-									data:objeto="${produto.nomeProduto}">
-								<i class="glyphicon glyphicon-remove"></i>
-							</a>
-						</td>
-					</tr>
-					<tr th:if="${pagina.vazia}">
-						<td colspan="8">No se han encontrado artículos</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
+    <div class="container-fluid">
+        <form method="GET" th:object="${produtoFilter}">
+            <div class="row">
+                <div class="form-group  col-sm-3">
+                    <label class="control-label" for="referencia">Referencia</label>
+                    <input type="text" class="form-control" id="referencia" th:field="*{referencia}"/>
+                </div>
 
-	 <sge:pagination page="${pagina}" />
-	
-	</div>
+                <div class="form-group  col-sm-3">
+                    <label class="control-label" for="referenciaFornecedor">Referencia Proveedor</label>
+                    <input type="text" class="form-control" id="referenciaFornecedor"
+                           th:field="*{referenciaFornecedor}"/>
+                </div>
+
+
+                <div class="form-group  col-sm-3">
+                    <label class="control-label" for="nome">Nombre</label>
+                    <input type="text" class="form-control" id="nome" th:field="*{nomeProduto}"/>
+                </div>
+
+                <div class="form-group  col-sm-3">
+                    <label class="control-label" for="codigoBarras">Código de Barra</label>
+                    <input type="text" class="form-control" id="codigoBarras" autofocus="autofocus"
+                           th:field="*{codigoBarras}"
+                           onkeypress="return event.charCode >= 48 && event.charCode <= 57"/>
+                </div>
+
+            </div>
+
+
+            <div class="row">
+
+                <div class="form-group  col-sm-3">
+                    <label class="control-label" for="marca">Marca</label>
+                    <select id="marca" class="form-control" th:field="*{marca}">
+                        <option value="">Todas las marcas</option>
+                        <option th:each="marca : ${marcas}" th:text="${marca.nome}" th:value="${marca.codigo}"></option>
+                    </select>
+                </div>
+
+                <div class="col-sm-2  form-group">
+                    <label for="grupoProdutos" class="control-label">Grupo</label>
+                    <div class="sge-field-action">
+                        <select id="grupoProdutos" class="form-control" th:field="*{grupoProdutos}">
+                            <option value="">Seleccionar uno grupo</option>
+                            <option th:each="grupoProdutos : ${gruposProdutos}" th:value="${grupoProdutos.codigo}"
+                                    th:text="${grupoProdutos.nome}">Limpeza
+                            </option>
+
+                        </select>
+
+                        <div class="sge-field-action__icon">
+                            <a href="#" data-toggle="modal" data-target="#modalCadastroRapidoGrupo">
+                                <i class="glyphicon  glyphicon-plus-sign  bw-glyphicon-large"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-2  form-group">
+                    <label for="subgrupoProdutos" class="control-label">Subgrupo</label>
+                    <div class="sge-field-action">
+                        <input type="hidden" id="inputHiddenSubgrupoProdutosSelecionada"
+                               th:value="*{subgrupoProdutos} != null ? *{subgrupoProdutos.codigo}"/>
+                        <select id="subgrupoProdutos" class="form-control" th:field="*{subgrupoProdutos}">
+
+                        </select>
+                        <div class="sge-field-action__icon  js-img-loading" style="display: none">
+                            <img th:src="@{/images/mini-loading.gif}"/>
+                        </div>
+
+
+                    </div>
+                </div>
+
+                <!-- 				<div class="form-group  col-sm-2"> -->
+                <!-- 					<label class="control-label" for="grupoProdutos">Sección</label> -->
+                <!-- 					<select id="grupo"  class="form-control" th:field="*{grupoProdutos}"> -->
+                <!-- 						<option value="">Todas las Secciones</option> -->
+                <!-- 						<option th:each="grupoProdutos : ${gruposProdutos}" th:text="${grupoProdutos.nome}" th:value="${grupoProdutos.codigo}"></option> -->
+                <!-- 		           </select> -->
+                <!-- 				</div> -->
+
+                <!-- 				<div class="form-group  col-sm-2"> -->
+                <!--                      	<label for="subgrupoProdutos" class="control-label">Subgrupo</label> -->
+                <!-- 		                     <div class="sge-field-action"> -->
+                <!-- 		                     	<input type="hidden" id="inputHiddenSubgrupoProdutosSelecionada" th:value="*{subgrupoProdutos} != null ? *{subgrupoProdutos.codigo}"/> -->
+                <!-- 								<select id="subgrupoProdutos"  class="form-control" data:url="@{/subgruposProdutos}" th:field="*{subgrupoProdutos}"> -->
+
+                <!-- 		                		</select> -->
+                <!-- 		                		<div class="sge-field-action__icon  js-img-loading" style="display: none"> -->
+                <!-- 									<img th:src="@{/images/mini-loading.gif}"/> -->
+                <!-- 								</div> -->
+
+
+                <!-- 						   </div> -->
+                <!--               	  </div> -->
+
+                <!-- 				<div class="col-sm-3  form-group"> -->
+                <!-- 					<label for="precoDe">Precio de venta</label> -->
+                <!-- 					<div class="form-inline"> -->
+                <!-- 						<input type="text" class="form-control  al-form-control-inline-sm  js-decimal" id="precoDe" th:field="*{valorDe}"/> -->
+                <!-- 						<label for="precoAte" class="al-form-label-between">Hasta</label> -->
+                <!-- 						<input type="text" class="form-control  al-form-control-inline-sm  js-decimal" id="precoAte" th:field="*{valorAte}"/> -->
+                <!-- 					</div> -->
+                <!-- 				</div> -->
+                <div class="col-sm-3  form-group">
+                    <label for="precoDe">Stock</label>
+                    <div class="form-inline">
+                        <input type="number" class="form-control  al-form-control-inline-sm" id="estoqueDe"
+                               th:field="*{estoqueDe}"/>
+                        <label for="estoqueAte" class="al-form-label-between">Hasta</label>
+                        <input type="number" class="form-control  al-form-control-inline-sm" id="estoqueAte"
+                               th:field="*{estoqueAte}"/>
+                    </div>
+                </div>
+
+                <div class="col-sm-2  form-group">
+                    <label for="ativo" class="control-label">Estado</label>
+                    <div>
+                        <input type="checkbox" id="ativo" checked="checked" class="js-status" data-size="small"
+                               data-off-color="danger" data-on-text="Activo" data-off-text="Inactivo"
+                               th:field="*{ativo}"/>
+                    </div>
+                </div>
+
+            </div>
+
+            <button type="submit" class="btn  btn-primary">Búsqueda</button>
+        </form>
+
+        <div class="table-responsive  sge-tabela-simples">
+            <table class="table  table-hover">
+                <thead>
+                <tr>
+                    <th class="table-produtos-col-foto"></th>
+                    <th class="table-produtos-col-codigoBarras">Referencia Proveedor</th>
+                    <th class="table-produtos-col-referencia">Referencia</th>
+                    <th class="table-col-nome">
+                        <sge:order page="${pagina}" field="nomeProduto" text="Nombre"/>
+                    </th>
+                    <th class="table-produtos-col-estoque">
+                        <sge:order page="${pagina}" field="quantidadeEstoque" text="Stock"/>
+                    </th>
+                    <th class="table-produtos-col-estoque">
+                        <sge:order page="${pagina}" field="quantidadeEstoquePendente" text="'S. Roto'"/>
+                    </th>
+                    <th class="table-produtos-col-marca">
+                        <sge:order page="${pagina}" field="marca" text="Marca"/>
+                    </th>
+                    <th class="table-produtos-col-grupo">
+                        <sge:order page="${pagina}" field="grupoProdutos" text="Sección"/>
+                    </th>
+                    <!-- 						<th class="table-produtos-col-valor">Precio</th> -->
+
+
+                    <th class="table-col-acoes" sec:authorize="hasRole('ROLE_CADASTRAR_PRODUTO')"></th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr th:each="produto : ${pagina.conteudo}">
+                    <td class="text-center">
+                        <img th:src="@{/fotos/thumbnail.{foto}(foto=${produto.fotoOuMock})}" class="img-responsive"/>
+                    </td>
+                    <td class="text-center" th:text="${produto.referenciaFornecedor}">8412127891234</td>
+                    <td class="text-center" th:text="${produto.referencia}">8412127891234</td>
+                    <td th:text="|${produto.nomeProduto} CJ C/ ${produto.quantidadeCaixa}|">Coca-cola lata 330ml</td>
+                    <td class="text-center" th:text="${produto.quantidadeEstoque}">100</td>
+                    <td class="text-center" th:text="${produto.quantidadeEstoquePendente}">100</td>
+                    <td th:text="${produto.marca.nome}">Marca</td>
+                    <td th:text="${produto.grupoProdutos.nome}">Grupo</td>
+                    <!-- 						<td class="text-right" th:text="|€ ${produto.custoVenda}|">€ 8.00</td> -->
+
+                    <td class="text-center" sec:authorize="hasRole('ROLE_CADASTRAR_PRODUTO')">
+                        <a class="btn  btn-link  btn-xs  js-tooltip" title="Editar"
+                           th:href="@{/produtos/{codigo}(codigo=${produto.codigo})}">
+                            <i class="glyphicon glyphicon-pencil"></i>
+                        </a>
+                        <a class="btn  btn-link  btn-xs  js-tooltip  js-exclusao-btn" title="Eliminar" href="#"
+                           data:url="@{/produtos/{codigo}(codigo=${produto.codigo})}"
+                           data:objeto="${produto.nomeProduto}">
+                            <i class="glyphicon glyphicon-remove"></i>
+                        </a>
+                    </td>
+                </tr>
+                <tr th:if="${pagina.vazia}">
+                    <td colspan="8">No se han encontrado artículos</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <sge:pagination page="${pagina}"/>
+
+    </div>
 
 </section>
 
 <th:block layout:fragment="javascript-extra">
-	<script th:src="@{/javascripts/produto.combo-grupo-subgrupo.js}"></script>
+    <script th:src="@{/javascripts/produto.combo-grupo-subgrupo.js}"></script>
 
-	<script>
-			$('.js-status').bootstrapSwitch();
-	</script>
+    <script>
+        $('.js-status').bootstrapSwitch();
+    </script>
 </th:block>
 </body>
 </html>
