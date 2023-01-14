@@ -1,7 +1,9 @@
 package com.ailtonluiz.sgs.model;
 
+import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -9,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
@@ -39,6 +42,13 @@ public class SubgrupoProdutos {
 	@JoinColumn(name = "codigo_grupo_produto")
 	@JsonIgnore
 	private GrupoProdutos grupoProdutos;
+	
+	
+
+	@OneToMany(mappedBy = "subgrupoProdutos")
+	@JsonIgnore
+	private List<Produto> produtos;
+
 
 	private boolean ativo = true;
 	
@@ -77,6 +87,16 @@ public class SubgrupoProdutos {
 	
 	
 
+	public List<Produto> getProdutos() {
+		return produtos;
+	}
+
+
+	public void setProdutos(List<Produto> produtos) {
+		this.produtos = produtos;
+	}
+
+
 	public boolean isAtivo() {
 		return ativo;
 	}
@@ -94,6 +114,13 @@ public class SubgrupoProdutos {
 		return codigo == null;
 	}
 
+	public String getNomeSubgrupoProdutosGrupo() {
+		if(this.grupoProdutos != null ) {
+			return this.grupoProdutos.getNome();
+		}
+		return null;
+	}
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(codigo, grupoProdutos, nome);

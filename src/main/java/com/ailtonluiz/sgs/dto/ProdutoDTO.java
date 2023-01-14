@@ -104,6 +104,8 @@ public class ProdutoDTO {
 	public void setReferenciaFornecedor(String referenciaFornecedor) {
 		this.referenciaFornecedor = referenciaFornecedor;
 	}
+	
+	
 
 	public String getMarca() {
 		return marca;

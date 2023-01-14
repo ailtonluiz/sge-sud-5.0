@@ -76,9 +76,13 @@ public class ProdutosImpl implements ProdutosQueries {
 			if(!StringUtils.isEmpty(filtro.getReferenciaFornecedor())) {
 				criteria.add(Restrictions.eq("referenciaFornecedor", filtro.getReferenciaFornecedor()));
 			}
+//			
+//			if (isGrupoPresente(filtro)) {
+//				criteria.add(Restrictions.eq("grupoProdutos", filtro.getGrupoProdutos()));
+//			}
 			
-			if (isGrupoPresente(filtro)) {
-				criteria.add(Restrictions.eq("grupoProdutos", filtro.getGrupoProdutos()));
+			if(isSubgrupoProdutosPresente(filtro)) {
+				criteria.add(Restrictions.eq("subgrupoProdutos", filtro.getSubgrupoProdutos()));
 			}
 
 			if (isMarcaPresente(filtro)) {
@@ -105,7 +109,11 @@ public class ProdutosImpl implements ProdutosQueries {
 
 	}
 
-	private boolean isGrupoPresente(ProdutoFilter filtro) {
+//	private boolean isGrupoPresente(ProdutoFilter filtro) {
+//		return filtro.getGrupoProdutos() != null && filtro.getGrupoProdutos().getCodigo() != null;
+//	}
+	
+	private boolean isSubgrupoProdutosPresente(ProdutoFilter filtro) {
 		return filtro.getSubgrupoProdutos() != null && filtro.getSubgrupoProdutos().getCodigo() != null;
 	}
 

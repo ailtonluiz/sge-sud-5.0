@@ -5,10 +5,12 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -75,13 +77,13 @@ public class Produto implements Serializable {
 	@Column(name = "quantidade_palet")
 	private Double quantidadePalet;
 
-	@NotNull(message = "Introduzca el grupo de productos")
-	@ManyToOne
-	@JoinColumn(name = "codigo_grupo")
-	private GrupoProdutos grupoProdutos;
+//	@NotNull(message = "Introduzca el grupo de productos")
+//	@ManyToOne
+//	@JoinColumn(name = "codigo_grupo")
+//	private GrupoProdutos grupoProdutos;
 	
 	
-	@NotNull(message = "Introduzca el subgrupo de productos")
+	//@NotNull(message = "Introduzca el subgrupo de productos")
 	@ManyToOne
 	@JoinColumn(name = "codigo_subgrupo_produtos")
 	private SubgrupoProdutos subgrupoProdutos;
@@ -220,14 +222,14 @@ public class Produto implements Serializable {
 		this.quantidadePalet = quantidadePalet;
 	}
 
-	public GrupoProdutos getGrupoProdutos() {
-		return grupoProdutos;
-	}
-
-	public void setGrupoProdutos(GrupoProdutos grupoProdutos) {
-		this.grupoProdutos = grupoProdutos;
-	}
-	
+//	public GrupoProdutos getGrupoProdutos() {
+//		return grupoProdutos;
+//	}
+//
+//	public void setGrupoProdutos(GrupoProdutos grupoProdutos) {
+//		this.grupoProdutos = grupoProdutos;
+//	}
+//	
 	
 
 	public SubgrupoProdutos getSubgrupoProdutos() {

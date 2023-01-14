@@ -147,10 +147,10 @@ layout/LayoutPadrao
 							   </div>
 	                   </div>
 	                   
-      			 	<div class="col-sm-2  form-group  sge-required" sge:classforerror="grupoProdutos">
+      			 	<div class="col-sm-2  form-group  sge-required">
                      	<label for="grupoProdutos" class="control-label">Grupo</label>
 		                     <div class="sge-field-action">
-								<select id="grupoProdutos"  class="form-control" th:field="*{grupoProdutos}">
+								<select id="grupoProdutos"  class="form-control" th:field="*{subgrupoProdutos}">
 									<option value="">Seleccionar uno grupo</option>
 									<option th:each="grupoProdutos : ${gruposProdutos}" th:value="${grupoProdutos.codigo}" th:text="${grupoProdutos.nome}">Limpeza</option>
 								
@@ -167,7 +167,7 @@ layout/LayoutPadrao
                      	<label for="subgrupoProdutos" class="control-label">Subgrupo</label>
 		                     <div class="sge-field-action">
 		                     	<input type="hidden" id="inputHiddenSubgrupoProdutosSelecionada" th:value="*{subgrupoProdutos} != null ? *{subgrupoProdutos.codigo}"/>
-								<select id="subgrupoProdutos"  class="form-control" data:url="@{/subgruposProdutos}" th:field="*{subgrupoProdutos}">
+								<select id="subgrupoProdutos"  class="form-control" data:url="@{/subgruposProdutos}" th:field="*{subgrupoProdutos.nome}">
 								
 		                		</select>
 		                		<div class="sge-field-action__icon  js-img-loading" style="display: none">

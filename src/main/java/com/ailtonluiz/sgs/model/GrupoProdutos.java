@@ -29,9 +29,6 @@ public class GrupoProdutos implements Serializable {
 
 	private boolean ativo = true;
 
-	@OneToMany(mappedBy = "grupoProdutos")
-	private List<Produto> produtos;
-
 	@PrePersist
 	@PreUpdate
 	private void prePersistUpdate() {
@@ -63,13 +60,7 @@ public class GrupoProdutos implements Serializable {
 		this.ativo = ativo;
 	}
 
-	public List<Produto> getProdutos() {
-		return produtos;
-	}
 
-	public void setProdutos(List<Produto> produtos) {
-		this.produtos = produtos;
-	}
 
 	public boolean isNovo() {
 		return codigo == null;

@@ -74,7 +74,7 @@
                 <div class="col-sm-2  form-group">
                     <label for="grupoProdutos" class="control-label">Grupo</label>
                     <div class="sge-field-action">
-                        <select id="grupoProdutos" class="form-control" th:field="*{grupoProdutos}">
+                        <select id="grupoProdutos" class="form-control" th:field="*{subgrupoProdutos.grupoProdutos}">
                             <option value="">Seleccionar uno grupo</option>
                             <option th:each="grupoProdutos : ${gruposProdutos}" th:value="${grupoProdutos.codigo}"
                                     th:text="${grupoProdutos.nome}">Limpeza
@@ -180,9 +180,9 @@
                     <th class="table-produtos-col-marca">
                         <sge:order page="${pagina}" field="marca" text="Marca"/>
                     </th>
-                    <th class="table-produtos-col-grupo">
-                        <sge:order page="${pagina}" field="grupoProdutos" text="Sección"/>
-                    </th>
+<!--                     <th class="table-produtos-col-grupo"> -->
+<!--                         <sge:order page="${pagina}" field="subgrupoProdutos" text="Sección"/> -->
+<!--                     </th> -->
                     <!-- 						<th class="table-produtos-col-valor">Precio</th> -->
 
 
@@ -201,7 +201,7 @@
                     <td class="text-center" th:text="${produto.quantidadeEstoque}">100</td>
                     <td class="text-center" th:text="${produto.quantidadeEstoquePendente}">100</td>
                     <td th:text="${produto.marca.nome}">Marca</td>
-                    <td th:text="${produto.grupoProdutos.nome}">Grupo</td>
+<!--                     <td th:text="${produto.subgrupoProdutos.nomeSubgrupoProdutosGrupo}">Grupo</td> -->
                     <!-- 						<td class="text-right" th:text="|€ ${produto.custoVenda}|">€ 8.00</td> -->
 
                     <td class="text-center" sec:authorize="hasRole('ROLE_CADASTRAR_PRODUTO')">
